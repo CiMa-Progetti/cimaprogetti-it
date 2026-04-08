@@ -150,7 +150,7 @@ export default function Home() {
             </div>
 
             {/* Automazioni & IA */}
-            <div className="md:col-span-2 bg-zinc-900 text-white p-8 lg:p-12 flex flex-col md:flex-row justify-between items-center gap-8 group">
+            <div className="md:col-span-2 bg-surface-container-high text-on-surface p-8 lg:p-12 flex flex-col md:flex-row justify-between items-center gap-8 group transition-colors duration-300">
               <div className="max-w-xl">
                 <h3 className="text-2xl lg:text-3xl font-black uppercase mb-4">
                   Automazioni &amp; IA
