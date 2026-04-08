@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function Contatti() {
   return (
-    <div className="pt-32 pb-24 px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="pt-32 pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
       {/* Hero Section */}
-      <section className="grid grid-cols-12 mb-16 lg:mb-24">
+      <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24">
         <div className="col-span-12 md:col-span-8">
           <h1 className="text-huge font-black uppercase text-on-surface mb-8">
             CONTATTI
@@ -25,7 +25,7 @@ export default function Contatti() {
       </section>
 
       {/* General Contacts */}
-      <section className="grid grid-cols-12 mb-16 lg:mb-24 gap-12">
+      <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24 gap-6 lg:gap-12">
         <div className="col-span-12 md:col-span-5 border-t border-outline-variant/20 pt-8">
           <h2 className="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-12">
             contatti
