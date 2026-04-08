@@ -1,0 +1,6 @@
+# Robots.txt for cimaprogetti.it
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cimaprogetti.it/sitemap.xml
