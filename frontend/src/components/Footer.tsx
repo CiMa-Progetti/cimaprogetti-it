@@ -77,11 +77,11 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-zinc-800 text-center sm:text-left">
         <p className="font-sans text-xs tracking-wide text-zinc-500 uppercase">
-          &copy; 2026 CiMa Progetti. Soluzioni digitali.
+          &copy; 2026 CiMa Progetti Srls. Soluzioni digitali.
         </p>
       </div>
       {/* Watermark */}
-      <span className="absolute bottom-0 right-0 text-[200px] font-black tracking-tighter leading-none select-none pointer-events-none text-[#2e2e2e] translate-x-4 translate-y-12">
+      <span className="hidden lg:block absolute bottom-0 right-0 text-[200px] font-black tracking-tighter leading-none select-none pointer-events-none text-[#2e2e2e] translate-x-4 translate-y-12">
         CIMA
       </span>
     </footer>
