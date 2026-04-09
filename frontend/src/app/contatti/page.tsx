@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { LazySection } from "@/components/LazySection";
+import { Skeleton, SkeletonWave } from "@/components/Skeleton";
 
 export const metadata: Metadata = {
   title: "Contatti | CiMa Progetti",
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default function Contatti() {
   return (
     <div className="pt-32 pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
-      {/* Hero Section */}
+      {/* Hero Section - Priority render */}
       <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24">
         <div className="col-span-12 md:col-span-8">
           <h1 className="text-huge font-black uppercase text-on-surface mb-8">
@@ -24,8 +26,12 @@ export default function Contatti() {
         </div>
       </section>
 
-      {/* General Contacts */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24 gap-6 lg:gap-12">
+      {/* General Contacts - Lazy loaded */}
+      <LazySection
+        className="lazy-section grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24 gap-6 lg:gap-12"
+        skeletonHeight="300px"
+        skeletonCount={1}
+      >
         <div className="col-span-12 md:col-span-5 border-t border-outline-variant/20 pt-8">
           <h2 className="text-xs font-black tracking-[0.2em] uppercase text-zinc-400 mb-12">
             contatti
@@ -64,102 +70,109 @@ export default function Contatti() {
             src="/images/contatti.jpg"
             width={800}
             height={360}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-primary/5 mix-blend-multiply" />
         </div>
-      </section>
+      </LazySection>
 
-      {/* People Behind CiMa */}
-      <section className="mb-12">
-        <div className="border-t border-outline-variant/20 pt-8 mb-8">
-          <h2 className="text-xs font-black tracking-[0.2em] uppercase text-zinc-400">
-            people behind cima
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/10">
-          {/* Nicola Leone Ciardi */}
-          <div className="bg-background py-12 pr-0 md:pr-12">
-            <div className="flex flex-col h-full">
-              <div className="mb-6">
-                <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
-                  Nicola Leone Ciardi
-                </h3>
-                <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
-                  Co-Founder &amp; CEO
+      {/* People Behind CiMa - Lazy loaded */}
+      <LazySection
+        className="lazy-section mb-12"
+        skeletonHeight="400px"
+        skeletonCount={1}
+      >
+        <section className="mb-12">
+          <div className="border-t border-outline-variant/20 pt-8 mb-8">
+            <h2 className="text-xs font-black tracking-[0.2em] uppercase text-zinc-400">
+              people behind cima
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/10">
+            {/* Nicola Leone Ciardi */}
+            <div className="bg-background py-12 pr-0 md:pr-12">
+              <div className="flex flex-col h-full">
+                <div className="mb-6">
+                  <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
+                    Nicola Leone Ciardi
+                  </h3>
+                  <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
+                    Co-Founder &amp; CEO
+                  </p>
+                </div>
+                <p className="text-on-surface-variant mb-10 max-w-sm text-base leading-relaxed">
+                  Management and computer science.
                 </p>
+                <div className="mt-auto space-y-4">
+                  <a
+                    className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
+                    href="tel:+393382451178"
+                  >
+                    <span className="material-symbols-outlined text-primary">
+                      call
+                    </span>
+                    <span className="font-bold tracking-tight">
+                      +39 338 245 1178
+                    </span>
+                  </a>
+                  <a
+                    className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
+                    href="mailto:nicolaleone.ciardi@cimaprogetti.it"
+                  >
+                    <span className="material-symbols-outlined text-primary">
+                      mail
+                    </span>
+                    <span className="font-bold tracking-tight">
+                      nicolaleone.ciardi@cimaprogetti.it
+                    </span>
+                  </a>
+                </div>
               </div>
-              <p className="text-on-surface-variant mb-10 max-w-sm text-base leading-relaxed">
-                Management and computer science.
-              </p>
-              <div className="mt-auto space-y-4">
-                <a
-                  className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
-                  href="tel:+393382451178"
-                >
-                  <span className="material-symbols-outlined text-primary">
-                    call
-                  </span>
-                  <span className="font-bold tracking-tight">
-                    +39 338 245 1178
-                  </span>
-                </a>
-                <a
-                  className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
-                  href="mailto:nicolaleone.ciardi@cimaprogetti.it"
-                >
-                  <span className="material-symbols-outlined text-primary">
-                    mail
-                  </span>
-                  <span className="font-bold tracking-tight">
-                    nicolaleone.ciardi@cimaprogetti.it
-                  </span>
-                </a>
+            </div>
+
+            {/* Valentina Madaudo */}
+            <div className="bg-background py-12 md:pl-12 border-t md:border-t-0 md:border-l border-outline-variant/10">
+              <div className="flex flex-col h-full">
+                <div className="mb-6">
+                  <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
+                    Valentina Madaudo
+                  </h3>
+                  <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
+                    Co-Founder &amp; CFO
+                  </p>
+                </div>
+                <p className="text-on-surface-variant mb-10 max-w-sm text-base leading-relaxed">
+                  Jr Engineer &amp; economist for sustainable development.
+                </p>
+                <div className="mt-auto space-y-4">
+                  <a
+                    className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
+                    href="tel:+393393580805"
+                  >
+                    <span className="material-symbols-outlined text-primary">
+                      call
+                    </span>
+                    <span className="font-bold tracking-tight">
+                      +39 339 358 0805
+                    </span>
+                  </a>
+                  <a
+                    className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
+                    href="mailto:valentina.madaudo@cimaprogetti.it"
+                  >
+                    <span className="material-symbols-outlined text-primary">
+                      mail
+                    </span>
+                    <span className="font-bold tracking-tight">
+                      valentina.madaudo@cimaprogetti.it
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Valentina Madaudo */}
-          <div className="bg-background py-12 md:pl-12 border-t md:border-t-0 md:border-l border-outline-variant/10">
-            <div className="flex flex-col h-full">
-              <div className="mb-6">
-                <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
-                  Valentina Madaudo
-                </h3>
-                <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
-                  Co-Founder &amp; CFO
-                </p>
-              </div>
-              <p className="text-on-surface-variant mb-10 max-w-sm text-base leading-relaxed">
-                Jr Engineer &amp; economist for sustainable development.
-              </p>
-              <div className="mt-auto space-y-4">
-                <a
-                  className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
-                  href="tel:+393393580805"
-                >
-                  <span className="material-symbols-outlined text-primary">
-                    call
-                  </span>
-                  <span className="font-bold tracking-tight">
-                    +39 339 358 0805
-                  </span>
-                </a>
-                <a
-                  className="flex items-center space-x-3 text-on-surface hover:text-primary transition-colors"
-                  href="mailto:valentina.madaudo@cimaprogetti.it"
-                >
-                  <span className="material-symbols-outlined text-primary">
-                    mail
-                  </span>
-                  <span className="font-bold tracking-tight">
-                    valentina.madaudo@cimaprogetti.it
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </LazySection>
     </div>
   );
 }

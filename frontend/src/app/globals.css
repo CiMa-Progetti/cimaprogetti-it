@@ -54,3 +54,60 @@ body {
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
+
+/* Performance optimizations */
+img {
+  decoding: async;
+}
+
+/* Skeleton wave animation */
+@keyframes wave {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-wave {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 0%,
+    var(--color-surface-container-high) 50%,
+    var(--color-surface-container) 100%
+  );
+  background-size: 200% 100%;
+  animation: wave 2s infinite;
+}
+
+
+
+/* Optimize font loading */
+@font-face {
+  font-family: "Inter";
+  font-display: swap;
+  src: url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900");
+}
+
+/* Prevent layout shift for lazy-loaded images */
+img {
+  aspect-ratio: auto;
+}
+
+/* Optimize animations for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .skeleton-wave {
+    animation: none;
+    background: var(--color-surface-container-high);
+  }
+}
