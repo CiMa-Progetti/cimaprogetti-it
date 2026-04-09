@@ -48,7 +48,7 @@ export default function CtaSection() {
           <Link
             ref={buttonRef}
             href="/contatti"
-            className="inline-block border-2 border-white bg-white text-primary px-12 py-6 font-black uppercase tracking-widest text-lg lg:text-xl hover:bg-transparent hover:text-white hover:border-2 hover:border-white transition-colors"
+            className="inline-block border-2 border-white bg-white text-primary px-8 py-4 sm:px-12 sm:py-6 font-black uppercase tracking-widest text-sm sm:text-lg lg:text-xl hover:bg-transparent hover:text-white hover:border-2 hover:border-white transition-colors"
           >
             Contattaci
           </Link>

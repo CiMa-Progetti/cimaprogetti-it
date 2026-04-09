@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Contatti() {
   return (
-    <div className="pt-32 pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
+    <div className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
       {/* Hero Section - Priority render */}
       <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24">
         <div className="col-span-12 md:col-span-8">
@@ -20,7 +20,7 @@ export default function Contatti() {
           <div className="h-2 w-24 bg-primary mt-4" />
         </div>
         <div className="col-span-12 md:col-start-9 md:col-span-4 mt-8 md:mt-auto">
-          <p className="text-on-surface-variant font-medium text-lg lg:text-xl leading-relaxed">
+          <p className="text-on-surface-variant font-medium text-base sm:text-lg lg:text-xl leading-relaxed">
             Parliamo del tuo prossimo progetto. Nessun impegno, solo una conversazione.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function Contatti() {
                 whatsapp
               </p>
               <a
-                className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300"
+                className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300"
                 href="tel:+393382451171"
               >
                 +39 338 245 1171
@@ -53,7 +53,7 @@ export default function Contatti() {
                 email
               </p>
               <a
-                className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300 underline decoration-2 underline-offset-8"
+                className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300 underline decoration-2 underline-offset-8"
                 href="mailto:info@cimaprogetti.it"
               >
                 info@cimaprogetti.it
@@ -93,7 +93,7 @@ export default function Contatti() {
             <div className="bg-background py-12 pr-0 md:pr-12">
               <div className="flex flex-col h-full">
                 <div className="mb-6">
-                  <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
                     Nicola Leone Ciardi
                   </h3>
                   <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
@@ -111,7 +111,7 @@ export default function Contatti() {
                     <span className="material-symbols-outlined text-primary">
                       call
                     </span>
-                    <span className="font-bold tracking-tight">
+                    <span className="font-bold tracking-tight text-sm sm:text-base break-all sm:break-normal">
                       +39 338 245 1178
                     </span>
                   </a>
@@ -122,7 +122,7 @@ export default function Contatti() {
                     <span className="material-symbols-outlined text-primary">
                       mail
                     </span>
-                    <span className="font-bold tracking-tight">
+                    <span className="font-bold tracking-tight text-sm sm:text-base break-all sm:break-normal">
                       nicolaleone.ciardi@cimaprogetti.it
                     </span>
                   </a>
@@ -134,7 +134,7 @@ export default function Contatti() {
             <div className="bg-background py-12 md:pl-12 border-t md:border-t-0 md:border-l border-outline-variant/10">
               <div className="flex flex-col h-full">
                 <div className="mb-6">
-                  <h3 className="text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter text-on-surface mb-2">
                     Valentina Madaudo
                   </h3>
                   <p className="text-primary font-bold uppercase text-[10px] tracking-[0.2em]">
@@ -152,7 +152,7 @@ export default function Contatti() {
                     <span className="material-symbols-outlined text-primary">
                       call
                     </span>
-                    <span className="font-bold tracking-tight">
+                    <span className="font-bold tracking-tight text-sm sm:text-base break-all sm:break-normal">
                       +39 339 358 0805
                     </span>
                   </a>
@@ -163,7 +163,7 @@ export default function Contatti() {
                     <span className="material-symbols-outlined text-primary">
                       mail
                     </span>
-                    <span className="font-bold tracking-tight">
+                    <span className="font-bold tracking-tight text-sm sm:text-base break-all sm:break-normal">
                       valentina.madaudo@cimaprogetti.it
                     </span>
                   </a>

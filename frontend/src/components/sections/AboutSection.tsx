@@ -57,7 +57,7 @@ export default function AboutSection() {
       {/* Content Overlay */}
       <div ref={textRef} className="max-w-3xl mx-auto text-center text-white relative z-10">
         <h2 className="text-huge font-black uppercase mb-8">Chi Siamo</h2>
-        <p className="text-lg lg:text-xl leading-relaxed mb-12">
+        <p className="text-base sm:text-lg lg:text-xl leading-relaxed mb-8 sm:mb-12">
           CiMa Progetti unisce architettura e software engineering. Costruiamo
           sistemi digitali solidi e scalabili per aziende che non accettano
           compromessi.
@@ -79,7 +79,7 @@ export default function AboutSection() {
         <div className="mt-12">
           <a
             href="/contatti"
-            className="inline-block border-2 border-white bg-white text-dark-bg px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:bg-transparent hover:text-white active:scale-[0.98]"
+            className="inline-block border-2 border-white bg-white text-dark-bg px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:bg-transparent hover:text-white active:scale-[0.98]"
           >
             Lavora con Noi
           </a>

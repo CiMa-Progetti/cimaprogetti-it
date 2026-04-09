@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,12 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "CiMa Progetti | Digital Architecture & Integration",
@@ -64,7 +70,6 @@ export default function RootLayout({
         />
 
         {/* Optimize LCP by reducing render-blocking resources */}
-        <meta name="viewport" content="viewport-fit=cover" />
       </head>
       <body className="min-h-screen flex flex-col">
         <Navbar />

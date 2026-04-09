@@ -41,7 +41,7 @@ export default function FilosofiaSection() {
         <h2 className="text-sm font-bold uppercase tracking-[0.4em] text-primary">
           La nostra idea
         </h2>
-        <blockquote className="text-3xl md:text-4xl lg:text-6xl font-black leading-tight italic">
+        <blockquote className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-black leading-tight italic">
           &ldquo;La forma segue la funzione. La struttura la rende
           duratura.&rdquo;
         </blockquote>
@@ -51,7 +51,7 @@ export default function FilosofiaSection() {
         </p>
         <a
           href="/contatti"
-          className="inline-block border-2 border-white text-white px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:bg-white hover:text-dark-bg active:scale-[0.98]"
+          className="inline-block border-2 border-white text-white px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:bg-white hover:text-dark-bg active:scale-[0.98]"
         >
           Inizia il Progetto
         </a>

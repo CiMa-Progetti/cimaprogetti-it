@@ -100,11 +100,11 @@ export default function ServicesSection() {
     >
       <div className="max-w-7xl mx-auto w-full">
         <div className="mb-16 text-center lg:text-left">
-          <h2 className="text-4xl lg:text-5xl font-black uppercase mb-6">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black uppercase mb-4 sm:mb-6">
             Cosa Facciamo
           </h2>
           <div className="w-24 h-2 bg-primary mb-8 hidden lg:block" />
-          <p className="text-xl text-secondary leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-xl text-secondary leading-relaxed max-w-2xl">
             Soluzioni su misura per il vostro metodo di lavoro. Automazione,
             gestione dati e competenze umane in un unico flusso.
           </p>
@@ -232,7 +232,7 @@ export default function ServicesSection() {
         <div className="text-center mt-12">
           <a
             href="/contatti"
-            className="inline-block bg-primary text-on-primary px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:brightness-110 active:scale-[0.98]"
+            className="inline-block bg-primary text-on-primary px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:brightness-110 active:scale-[0.98]"
           >
             Parliamo del tuo Progetto
           </a>

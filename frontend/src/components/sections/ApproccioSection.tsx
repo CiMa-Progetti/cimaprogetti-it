@@ -46,14 +46,14 @@ export default function ApproccioSection() {
         <h2 className="text-huge font-black uppercase mb-8">
           Tutto Collegato
         </h2>
-        <p className="text-xl lg:text-2xl leading-relaxed text-on-background mb-12">
+        <p className="text-base sm:text-xl lg:text-2xl leading-relaxed text-on-background mb-8 sm:mb-12">
           Non software isolati, ma infrastrutture digitali portanti. Ogni
           componente dialoga con gli altri per creare un sistema unico,
           costruito attorno al vostro modo di lavorare.
         </p>
         <a
           href="#servizi"
-          className="inline-block border-2 border-on-background text-on-background px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:bg-on-background hover:text-background active:scale-[0.98]"
+          className="inline-block border-2 border-on-background text-on-background px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:bg-on-background hover:text-background active:scale-[0.98]"
         >
           Scopri i Servizi
         </a>

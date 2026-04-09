@@ -32,7 +32,7 @@ export default function HeroSection() {
       <div className="max-w-5xl mx-auto text-center">
         <h1
           ref={headlineRef}
-          className="text-huge font-black uppercase mb-12"
+          className="text-huge font-black uppercase mb-8 sm:mb-12"
         >
           La <span className="text-primary">struttura</span> digitale del
           tuo business.
@@ -40,13 +40,13 @@ export default function HeroSection() {
         <div ref={ctaRef} className="flex flex-col sm:flex-row gap-6 justify-center">
           <Link
             href="/contatti"
-            className="bg-primary text-on-primary px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:brightness-110 active:scale-[0.98] text-center"
+            className="bg-primary text-on-primary px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:brightness-110 active:scale-[0.98] text-center"
           >
             Inizia il Progetto
           </Link>
           <a
             href="#filosofia"
-            className="border-2 border-on-background text-on-background px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:bg-on-background hover:text-background active:scale-[0.98] text-center"
+            className="border-2 border-on-background text-on-background px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:bg-on-background hover:text-background active:scale-[0.98] text-center"
           >
             Scopri il Metodo
           </a>

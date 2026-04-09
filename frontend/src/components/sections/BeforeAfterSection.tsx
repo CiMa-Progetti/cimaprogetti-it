@@ -129,7 +129,7 @@ export default function BeforeAfterSection() {
         <div ref={ctaRef} className="text-center mt-12">
           <a
             href="/contatti"
-            className="inline-block bg-primary text-on-primary px-10 py-5 font-bold uppercase tracking-widest text-lg transition-all hover:brightness-110 active:scale-[0.98]"
+            className="inline-block bg-primary text-on-primary px-6 py-3 sm:px-10 sm:py-5 font-bold uppercase tracking-widest text-sm sm:text-lg transition-all hover:brightness-110 active:scale-[0.98]"
           >
             Trasforma il tuo Business
           </a>

@@ -59,7 +59,7 @@ body {
 }
 
 .text-huge {
-  font-size: clamp(2.5rem, 8vw, 8rem);
+  font-size: clamp(2rem, 8vw, 8rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
