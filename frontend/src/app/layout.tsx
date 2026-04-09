@@ -54,22 +54,13 @@ export default function RootLayout({
         {/* DNS prefetch for third-party domains */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
-        {/* Material Symbols with swap for faster first paint */}
+        {/* Material Symbols — reduced to single weight/fill, display=swap prevents render blocking */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap"
           rel="stylesheet"
         />
 
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          as="font"
-          href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHAPMtMT7kjjj0P.woff2"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-
-        {/* Optimize LCP by reducing render-blocking resources */}
+        {/* Inter font is self-hosted by next/font — no external preload needed */}
       </head>
       <body className="min-h-screen flex flex-col">
         <Navbar />

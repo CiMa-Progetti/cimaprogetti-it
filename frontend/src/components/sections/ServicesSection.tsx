@@ -2,10 +2,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollProgressDots from "@/components/ScrollProgressDots";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
