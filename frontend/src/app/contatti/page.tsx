@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { LazySection } from "@/components/LazySection";
 import { Skeleton, SkeletonWave } from "@/components/Skeleton";
+import MaterialSymbolsFont from "@/components/MaterialSymbolsFont";
 
 export const metadata: Metadata = {
   title: "Contatti | CiMa Progetti",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function Contatti() {
   return (
     <div className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
+      <MaterialSymbolsFont />
       {/* Hero Section - Priority render */}
       <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24">
         <div className="col-span-12 md:col-span-8">

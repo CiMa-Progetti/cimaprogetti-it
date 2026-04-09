@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useGsapScrollTrigger } from "@/components/hooks/useGsapScrollTrigger";
+import MaterialSymbolsFont from "@/components/MaterialSymbolsFont";
 
 const ApproccioSection = dynamic(() => import("@/components/sections/ApproccioSection"), { ssr: false });
 const BeforeAfterSection = dynamic(() => import("@/components/sections/BeforeAfterSection"), { ssr: false });
@@ -14,6 +15,7 @@ export default function HomeSections() {
 
   return (
     <>
+      <MaterialSymbolsFont />
       <ApproccioSection />
       <BeforeAfterSection />
       <ServicesSection />

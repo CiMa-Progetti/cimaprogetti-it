@@ -4,7 +4,7 @@ export default function HeroSection() {
   return (
     <section className="snap-section min-h-screen flex items-center justify-center px-6 lg:px-8 pt-20">
       <div className="max-w-5xl mx-auto text-center">
-        <h1 className="text-huge font-black uppercase mb-8 sm:mb-12 hero-fade-up">
+        <h1 className="text-huge font-black uppercase mb-8 sm:mb-12 hero-slide-up">
           La <span className="text-primary">struttura</span> digitale del
           tuo business.
         </h1>

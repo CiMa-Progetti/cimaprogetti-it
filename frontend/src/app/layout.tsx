@@ -43,24 +43,9 @@ export default function RootLayout({
   return (
     <html lang="it" className={`${inter.variable} scroll-smooth`}>
       <head>
-        {/* Preconnect to Google Fonts for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-
-        {/* DNS prefetch for third-party domains */}
+        {/* Preconnect to Google Fonts — used by Material Symbols loaded lazily */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
-        {/* Material Symbols — reduced to single weight/fill, display=swap prevents render blocking */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap"
-          rel="stylesheet"
-        />
-
-        {/* Inter font is self-hosted by next/font — no external preload needed */}
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
       </head>
       <body className="min-h-screen flex flex-col">
         <Navbar />
