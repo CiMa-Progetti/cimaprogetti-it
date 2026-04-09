@@ -40,6 +40,15 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Scroll snap for section-by-section navigation */
+.snap-container {
+  scroll-snap-type: y proximity;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--color-background);
@@ -110,4 +119,13 @@ img {
     animation: none;
     background: var(--color-surface-container-high);
   }
+}
+
+/* Hide scrollbar for horizontal carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -81,7 +81,7 @@ export default function Footer() {
         </p>
       </div>
       {/* Watermark */}
-      <span className="hidden lg:block absolute bottom-0 right-0 text-[200px] font-black tracking-tighter leading-none select-none pointer-events-none text-on-surface/10 dark:text-on-surface/5 translate-x-4 translate-y-12 transition-colors duration-300">
+      <span className="hidden lg:block absolute bottom-0 right-0 text-[185px] font-black tracking-tighter leading-none select-none pointer-events-none text-on-surface/10 dark:text-on-surface/5 translate-x-4 translate-y-12 transition-colors duration-300">
         CIMA
       </span>
     </footer>
