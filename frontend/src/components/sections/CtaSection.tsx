@@ -7,10 +7,10 @@ import gsap from "gsap";
 export default function CtaSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!headingRef.current || !buttonRef.current) return;
+    if (!headingRef.current || !contentRef.current) return;
 
     const tl = gsap.timeline({
       defaults: { ease: "power3.out" },
@@ -21,12 +21,14 @@ export default function CtaSection() {
       },
     });
 
-    tl.fromTo(headingRef.current,
+    tl.fromTo(
+      headingRef.current,
       { scale: 0.8, opacity: 0 },
       { scale: 1, opacity: 1, duration: 0.8 }
-    ).fromTo(buttonRef.current,
+    ).fromTo(
+      contentRef.current.children,
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 },
       "-=0.4"
     );
   }, { scope: sectionRef });
@@ -35,74 +37,28 @@ export default function CtaSection() {
     <section
       ref={sectionRef}
       id="progetti"
-      className="snap-section min-h-screen flex items-center justify-center px-6 lg:px-8 bg-primary text-white relative overflow-hidden"
+      className="snap-section py-20 sm:py-28 lg:py-32 px-6 bg-primary text-white text-center"
     >
-      <div className="max-w-4xl mx-auto w-full relative z-10 text-center">
-        <div className="mx-auto">
-          <h2
-            ref={headingRef}
-            className="text-4xl md:text-6xl lg:text-7xl font-black uppercase mb-12 leading-none"
-          >
-            Pronto a scalare?
-          </h2>
+      <div className="max-w-4xl mx-auto">
+        <h2
+          ref={headingRef}
+          className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase leading-none mb-8 sm:mb-10"
+        >
+          SYSTEM
+          <br />
+          UPGRADE
+        </h2>
+        <div ref={contentRef}>
+          <p className="text-lg sm:text-xl lg:text-2xl font-medium mb-8 sm:mb-12 max-w-2xl mx-auto opacity-90">
+            Progettiamo insieme il prossimo tassello digitale della tua azienda.
+          </p>
           <Link
-            ref={buttonRef}
             href="/contatti"
-            className="inline-block border-2 border-white bg-white text-primary px-8 py-4 sm:px-12 sm:py-6 font-black uppercase tracking-widest text-sm sm:text-lg lg:text-xl hover:bg-transparent hover:text-white hover:border-2 hover:border-white transition-colors"
+            className="inline-block border-2 border-white hover:bg-transparent hover:text-white bg-white text-primary px-8 sm:px-12 py-4 sm:py-5 font-black uppercase tracking-widest text-base sm:text-lg transition-all active:scale-[0.98] rounded-[10px]"
           >
             Contattaci
           </Link>
         </div>
-      </div>
-
-      {/* Decorative SVG Lines */}
-      <div className="absolute top-0 right-0 h-full w-1/3 opacity-10 pointer-events-none">
-        <svg
-          className="h-full w-full"
-          preserveAspectRatio="none"
-          viewBox="0 0 100 100"
-        >
-          <line
-            stroke="white"
-            strokeWidth="0.1"
-            x1="0"
-            x2="100"
-            y1="0"
-            y2="100"
-          />
-          <line
-            stroke="white"
-            strokeWidth="0.1"
-            x1="0"
-            x2="100"
-            y1="20"
-            y2="120"
-          />
-          <line
-            stroke="white"
-            strokeWidth="0.1"
-            x1="0"
-            x2="100"
-            y1="40"
-            y2="140"
-          />
-          <line
-            stroke="white"
-            strokeWidth="0.1"
-            x1="20"
-            x2="120"
-            y1="0"
-            y2="100"
-          />
-          <line
-            stroke="white"
-            strokeWidth="0.1"
-            x1="40"
-            x2="140"
-            y1="0"
-            y2="100"
-          />
-        </svg>
       </div>
     </section>
   );

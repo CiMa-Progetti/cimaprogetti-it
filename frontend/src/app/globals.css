@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   --color-background: #fcf9f8;
   --color-on-background: #1b1c1c;
@@ -16,7 +16,7 @@
   --color-surface-container-highest: #e4e2e1;
   --color-surface-variant: #e4e2e1;
   --color-on-surface-variant: #454558;
-  --color-primary: #0001bb;
+  --color-primary: #0000ff;
   --color-on-primary: #ffffff;
   --color-primary-container: #0000ff;
   --color-on-primary-container: #b3b7ff;
@@ -47,6 +47,11 @@ html {
 
 .snap-section {
   scroll-snap-align: start;
+}
+
+/* Prevent scroll-snap from interfering with GSAP pinned sections */
+.pin-spacer {
+  scroll-snap-align: none !important;
 }
 
 body {
@@ -105,6 +110,10 @@ img {
 
 .hero-fade-up-delay-2 {
   animation-delay: 0.65s;
+}
+
+.hero-fade-up-delay-3 {
+  animation-delay: 0.8s;
 }
 
 /* Skeleton wave animation */

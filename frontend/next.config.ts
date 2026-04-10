@@ -17,14 +17,6 @@ const nextConfig: NextConfig = {
   /* Generate static pages early */
   reactStrictMode: true,
 
-  /* Experimental performance features */
-  experimental: {
-    optimizePackageImports: [
-      "@radix-ui/react-dialog",
-      "date-fns",
-      "lodash-es",
-    ],
-  },
 };
 
 export default nextConfig;

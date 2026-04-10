@@ -4,10 +4,10 @@ import { useGsapScrollTrigger } from "@/components/hooks/useGsapScrollTrigger";
 import MaterialSymbolsFont from "@/components/MaterialSymbolsFont";
 
 const ApproccioSection = dynamic(() => import("@/components/sections/ApproccioSection"), { ssr: false });
-const BeforeAfterSection = dynamic(() => import("@/components/sections/BeforeAfterSection"), { ssr: false });
+const QuoteSection = dynamic(() => import("@/components/sections/QuoteSection"), { ssr: false });
 const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection"), { ssr: false });
 const AboutSection = dynamic(() => import("@/components/sections/AboutSection"), { ssr: false });
-const FilosofiaSection = dynamic(() => import("@/components/sections/FilosofiaSection"), { ssr: false });
+const FaqSection = dynamic(() => import("@/components/sections/FaqSection"), { ssr: false });
 const CtaSection = dynamic(() => import("@/components/sections/CtaSection"), { ssr: false });
 
 export default function HomeSections() {
@@ -17,10 +17,10 @@ export default function HomeSections() {
     <>
       <MaterialSymbolsFont />
       <ApproccioSection />
-      <BeforeAfterSection />
+      <QuoteSection />
       <ServicesSection />
       <AboutSection />
-      <FilosofiaSection />
+      <FaqSection />
       <CtaSection />
     </>
   );
