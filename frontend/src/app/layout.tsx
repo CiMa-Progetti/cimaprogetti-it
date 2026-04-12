@@ -1,7 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -35,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className="scroll-smooth mb:overflow-x-hidden">
+    <html lang="it" className={`scroll-smooth mb:overflow-x-hidden ${ibmPlexMono.variable}`}>
       <head>
         {/* Preconnect to Google Fonts — used by Material Symbols loaded lazily */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,6 +54,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <CustomCursor />
       </body>
     </html>
   );

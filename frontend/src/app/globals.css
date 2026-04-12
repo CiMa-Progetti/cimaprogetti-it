@@ -2,6 +2,7 @@
 
 @theme inline {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-heading), "IBM Plex Mono", monospace;
 
   --color-background: #fcf9f8;
   --color-on-background: #1b1c1c;
@@ -56,7 +57,9 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-background);
+  background: linear-gradient(90deg, rgba(238,238,238,0.2) 0%, rgba(238,238,238,0.2) 100%), url('/images/body-texture.webp'), var(--color-background);
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--color-on-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -116,6 +119,22 @@ img {
   animation-delay: 0.8s;
 }
 
+/* Scroll-down cue animation */
+@keyframes scroll-down {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.4;
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.8s ease-in-out infinite;
+}
+
 /* Skeleton wave animation */
 @keyframes wave {
   0% {
@@ -169,3 +188,23 @@ img {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Custom cursor - hide native cursor on desktop */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html,
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  [role="button"],
+  [data-cursor] {
+    cursor: none;
+  }
+}
+
+/* Hug state glow */
+.cursor-hugged {
+  box-shadow: 0 0 25px rgba(0, 1, 187, 0.25);
+}
+

@@ -12,27 +12,27 @@ const faqs = [
   {
     question: "Cosa vi distingue da una classica agenzia?",
     answer:
-      "Non ci fermiamo al design o allo sviluppo di singoli asset. Lavoriamo come partner tecnico e strategico, progettando soluzioni che collegano immagine, processi, strumenti e performance in un sistema più ordinato, efficiente e misurabile.",
+      "Non ci fermiamo al design o allo sviluppo di singoli asset. Lavoriamo come partner tecnico e strategico, progettando soluzioni che collegano immagine, processi, strumenti e performance in un sistema pi\u00f9 ordinato, efficiente e misurabile.",
   },
   {
-    question: "Come utilizzate l'IA nei progetti?",
+    question: "Come utilizzate l\u2019IA nei progetti?",
     answer:
-      "Usiamo l’IA come leva per accelerare, organizzare e potenziare i processi, senza sostituire il valore umano. La tecnologia aumenta velocità e precisione; strategia, controllo e decisioni restano guidati dall’esperienza.",
+      "Usiamo l\u2019IA come leva per accelerare, organizzare e potenziare i processi, senza sostituire il valore umano. La tecnologia aumenta velocit\u00e0 e precisione; strategia, controllo e decisioni restano guidati dall\u2019esperienza.",
   },
   {
-    question: "Possiamo integrare i vostri servizi con strumenti che utilizziamo già?",
+    question: "Possiamo integrare i vostri servizi con strumenti che utilizziamo gi\u00e0?",
     answer:
-      "Sì. Quando possibile partiamo da ciò che l’azienda ha già costruito, integrando strumenti, processi e flussi di lavoro esistenti per migliorare l’operatività senza creare complessità inutile.",
+      "S\u00ec. Quando possibile partiamo da ci\u00f2 che l\u2019azienda ha gi\u00e0 costruito, integrando strumenti, processi e flussi di lavoro esistenti per migliorare l\u2019operativit\u00e0 senza creare complessit\u00e0 inutile.",
   },
   {
     question: "Ci seguite anche dopo la realizzazione?",
     answer:
-      "Sì. Un progetto digitale funziona davvero quando può evolversi nel tempo. Per questo accompagniamo il cliente anche nelle fasi di ottimizzazione, miglioramento e crescita del sistema implementato.",
+      "S\u00ec. Un progetto digitale funziona davvero quando pu\u00f2 evolversi nel tempo. Per questo accompagniamo il cliente anche nelle fasi di ottimizzazione, miglioramento e crescita del sistema implementato.",
   },
   {
-    question: "Perché scegliere CiMa come partner?",
+    question: "Perch\u00e9 scegliere CiMa come partner?",
     answer:
-      "Perché uniamo visione progettuale, competenze tecniche e un approccio aggiornato ai sistemi digitali contemporanei. Costruiamo soluzioni concrete, pensate per essere utili, sostenibili e davvero integrate nel lavoro quotidiano dell’azienda.",
+      "Perch\u00e9 uniamo visione progettuale, competenze tecniche e un approccio aggiornato ai sistemi digitali contemporanei. Costruiamo soluzioni concrete, pensate per essere utili, sostenibili e davvero integrate nel lavoro quotidiano dell\u2019azienda.",
   },
 ];
 
@@ -82,28 +82,36 @@ export default function FaqSection() {
   return (
     <section
       ref={sectionRef}
-      className="snap-section py-24 px-6 lg:px-12 bg-dark-bg text-white"
+      className="snap-section py-24 px-6 lg:px-12"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div ref={titleRef} className="lg:col-span-4">
-          <h2 className="text-7xl font-black uppercase">FAQs</h2>
+        <div ref={titleRef} className="lg:col-span-3">
+          <h2 className="font-heading text-6xl lg:text-7xl font-bold">FAQs</h2>
         </div>
-        <div ref={listRef} className="lg:col-span-8 space-y-2">
+        <div ref={listRef} className="lg:col-span-9 space-y-0">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="border-b border-zinc-700 py-6 cursor-pointer"
+              className="border-b border-zinc-300 py-8"
+              data-cursor="underline"
+              data-faq-open={openIndex === i ? "true" : undefined}
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-xl lg:text-2xl font-bold uppercase tracking-tight pr-4">
+                <h3 className="text-2xl lg:text-3xl pr-4">
                   {faq.question}
                 </h3>
-                <span className="material-symbols-outlined text-4xl shrink-0 transition-transform duration-300"
-                  style={{ transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)" }}
+                <svg
+                  className={`w-6 h-6 shrink-0 transition-transform duration-300 ${
+                    openIndex === i ? "rotate-45" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
                 >
-                  add
-                </span>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
               </div>
               <div
                 className="overflow-hidden transition-all duration-300"
@@ -112,7 +120,7 @@ export default function FaqSection() {
                   opacity: openIndex === i ? 1 : 0,
                 }}
               >
-                <p className="text-zinc-400 font-medium leading-relaxed pt-4">
+                <p className="text-secondary leading-relaxed pt-4 text-lg">
                   {faq.answer}
                 </p>
               </div>

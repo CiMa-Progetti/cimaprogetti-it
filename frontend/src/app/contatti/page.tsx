@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Contatti() {
   return (
-    <div className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
+    <div className="pt-36 sm:pt-44 pb-16 sm:pb-24 px-6 lg:px-8 max-w-7xl mx-auto overflow-x-hidden">
       <MaterialSymbolsFont />
       {/* Hero Section - Priority render */}
       <section className="grid grid-cols-1 lg:grid-cols-12 mb-16 lg:mb-24">
@@ -46,6 +46,7 @@ export default function Contatti() {
               <a
                 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300"
                 href="tel:+393382451171"
+                data-cursor="hug"
               >
                 +39 338 245 1171
               </a>
@@ -57,6 +58,7 @@ export default function Contatti() {
               <a
                 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tighter text-on-surface hover:text-primary transition-colors duration-300 underline decoration-2 underline-offset-8"
                 href="mailto:info@cimaprogetti.it"
+                data-cursor="hug"
               >
                 info@cimaprogetti.it
               </a>

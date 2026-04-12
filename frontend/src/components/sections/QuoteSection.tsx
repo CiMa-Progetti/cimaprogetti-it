@@ -30,17 +30,17 @@ export default function QuoteSection() {
   return (
     <section
       ref={sectionRef}
-      className="snap-section py-24 px-6 bg-dark-bg text-white flex flex-col items-center justify-center text-center"
+      className="snap-section py-24 lg:py-32 px-6 bg-dark-bg text-white flex flex-col items-center justify-center text-center"
     >
       <div className="max-w-5xl">
         <h2
           ref={quoteRef}
-          className="text-2xl md:text-3xl lg:text-4xl italic leading-tight"
+          className="text-2xl md:text-3xl lg:text-4xl italic leading-snug"
         >
-          <span className="font-black">&ldquo;Trasformiamo le tue idee in realtà digitale:</span>
+          <span className="font-bold">&ldquo;Trasformiamo le tue idee in realt&agrave; digitale</span>
+          <span>: </span>
           <br />
-          <span className="font-normal">velocità dell&apos;IA ed esperienza umana, animate dalla tua
-          esperienza.&rdquo;</span>
+          <span>velocit&agrave; dell&apos;IA ed esperienza umana, animate della tua esperienza.&rdquo;</span>
         </h2>
       </div>
     </section>

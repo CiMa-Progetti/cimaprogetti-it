@@ -37,24 +37,29 @@ export default function CtaSection() {
     <section
       ref={sectionRef}
       id="progetti"
-      className="snap-section py-20 sm:py-28 lg:py-32 px-6 bg-primary text-white text-center"
+      className="snap-section py-20 sm:py-28 lg:py-32 px-6 bg-dark-bg text-white text-center"
     >
       <div className="max-w-4xl mx-auto">
         <h2
           ref={headingRef}
-          className="text-5xl sm:text-7xl lg:text-9xl font-black uppercase leading-none mb-8 sm:mb-10"
+          className="text-5xl sm:text-7xl lg:text-8xl font-black uppercase leading-none mb-8 sm:mb-10"
         >
           SYSTEM
           <br />
           UPGRADE
         </h2>
         <div ref={contentRef}>
-          <p className="text-lg sm:text-xl lg:text-2xl font-medium mb-8 sm:mb-12 max-w-2xl mx-auto opacity-90">
-            Progettiamo insieme il prossimo tassello digitale della tua azienda.
+          <p className="text-lg sm:text-xl lg:text-2xl mb-8 sm:mb-12 max-w-2xl mx-auto opacity-90">
+            Progettiamo insieme
+            <br />
+            il prossimo tassello digitale
+            <br />
+            della tua azienda.
           </p>
           <Link
             href="/contatti"
-            className="inline-block border-2 border-white hover:bg-transparent hover:text-white bg-white text-primary px-8 sm:px-12 py-4 sm:py-5 font-black uppercase tracking-widest text-base sm:text-lg transition-all active:scale-[0.98] rounded-[10px]"
+            className="inline-block bg-white text-on-background px-12 py-6 font-black uppercase tracking-widest text-lg sm:text-xl transition-all hover:bg-zinc-100 active:scale-[0.98] rounded-[10px]"
+            data-cursor="hug"
           >
             Contattaci
           </Link>
