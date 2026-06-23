@@ -8,6 +8,14 @@ import { Placeholder, LogoPlaceholder, CtaFooter } from "@/components/Shared";
 import { useReveal } from "@/components/hooks/useReveal";
 
 // ============================================================
+// External targets
+// ============================================================
+const MADAUDO_URL = "https://madaudo.art";
+const GIAMPY_URL = "https://giampydogsitter.it/";
+// Concept CiMa OS — embed interattivo copiato in /public/concepts/cima-os/
+const CIMA_OS_URL = "/concepts/cima-os/index.html";
+
+// ============================================================
 // Types
 // ============================================================
 type Proj = {
@@ -20,6 +28,9 @@ type Proj = {
   demo?: boolean;
   concept?: boolean;
   hints?: string[];
+  viewport?: string; // URL: viewport NON interagibile del sito live
+  href?: string; // URL reale "Vai al sito"
+  embed?: string; // URL: concept interattivo (apre a schermo intero)
 };
 
 type ProjCategory = "online" | "demo" | "concept";
@@ -39,55 +50,34 @@ type ProgData = Record<
 const PROGETTI: ProgData = {
   online: {
     label: "Online",
-    blurb: "Progetti realizzati e già online: piattaforme, siti ed e-commerce che lavorano ogni giorno per i nostri clienti. Ogni card porta al progetto live.",
+    blurb: "Progetti realizzati e già online. Ogni card mostra una viewport del sito reale; premi \"Vai al sito\" per aprirlo.",
     items: [
       {
-        cat: "Sito vetrina",
-        title: "Studio professionale",
-        client: "Cliente Studio [DA INSERIRE]",
-        desc: "Sito istituzionale veloce e accessibile, con area contatti e prenotazioni integrate.",
-        tags: ["Next.js", "SEO", "Performance"],
+        cat: "Sito artista / galleria",
+        title: "Madaudo",
+        client: "Madaudo Studio",
+        desc: "Sito-portfolio per un artista: storytelling visivo, archivio opere, mostre e biografia. Tema WordPress su misura, dark e gallery-forward.",
+        tags: ["WordPress", "Portfolio", "Performance"],
         live: true,
+        viewport: MADAUDO_URL,
+        href: MADAUDO_URL,
       },
       {
-        cat: "E-commerce",
-        title: "Negozio online",
-        client: "Brand Retail [DA INSERIRE]",
-        desc: "E-commerce completo con gestione catalogo, pagamenti e logistica delle spedizioni.",
-        tags: ["E-commerce", "Pagamenti", "Gestionale"],
+        cat: "Sito servizi + area admin",
+        title: "Giampy Dog Service",
+        client: "Giampy Dog Service · Sassari",
+        desc: "Landing page con contenuti, testimonianze, mappa e form contatti, più un pannello admin per gestire testi, SEO, immagini e richieste. Costruito con SvelteKit.",
+        tags: ["SvelteKit", "Admin", "Mappa"],
         live: true,
-      },
-      {
-        cat: "Piattaforma",
-        title: "Dashboard gestionale",
-        client: "PMI Servizi [DA INSERIRE]",
-        desc: "Gestionale custom che centralizza dati e processi prima frammentati su più strumenti.",
-        tags: ["Custom", "Dashboard", "Integrazioni"],
-        live: true,
+        viewport: GIAMPY_URL,
+        href: GIAMPY_URL,
       },
     ],
   },
   demo: {
     label: "Demo",
-    blurb: "Lavori ipotizzati e prototipi interattivi: premi \"Interagisci\" per provarli.",
-    items: [
-      {
-        cat: "Demo interattiva",
-        title: "Assistente IA per booking",
-        desc: "Un agente conversazionale che gestisce prenotazioni e domande frequenti H24.",
-        tags: ["IA", "Chatbot", "Automazione"],
-        demo: true,
-        hints: ["Scrivi una richiesta di prenotazione", "Prova a chiedere disponibilità", "Osserva la risposta strutturata"],
-      },
-      {
-        cat: "Demo interattiva",
-        title: "Configuratore prodotto",
-        desc: "Un configuratore che guida l'utente alla scelta e calcola il preventivo in tempo reale.",
-        tags: ["Conversione", "UX", "Funnel"],
-        demo: true,
-        hints: ["Seleziona le opzioni", "Guarda il prezzo aggiornarsi", "Completa il percorso fino al CTA"],
-      },
-    ],
+    blurb: "Prototipi interattivi da provare in prima persona.",
+    items: [],
   },
   concept: {
     label: "Concept",
@@ -96,9 +86,10 @@ const PROGETTI: ProgData = {
       {
         cat: "Concept",
         title: "CiMa OS — interfaccia",
-        desc: "Esplorazione visiva di un sistema operativo AI-driven: un layer di automazioni che vive sotto ogni applicazione, orchestrando agenti e dati con un'unica grammatica visiva. Il concept indaga come rendere visibile l'invisibile — mostrare all'utente cosa l'IA sta facendo, mantenendo il controllo umano al centro di ogni decisione critica.",
+        desc: "Esplorazione visiva di un sistema operativo AI-driven: un layer di automazioni sotto ogni applicazione, che orchestra agenti e dati con un'unica grammatica visiva. Rende visibile l'invisibile — col controllo umano sempre al centro.",
         tags: ["Concept", "AI OS", "Design system"],
         concept: true,
+        embed: CIMA_OS_URL,
       },
       {
         cat: "Concept",
@@ -114,6 +105,54 @@ const PROGETTI: ProgData = {
 const TABS = ["online", "demo", "concept"] as const;
 
 // ============================================================
+// Site viewport — iframe live, scalato e NON interagibile
+// ============================================================
+const VIEWPORT_DESIGN_W = 1440;
+
+function SiteViewport({ url }: { url: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const measure = () => setBox({ w: el.clientWidth, h: el.clientHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const scale = box.w ? box.w / VIEWPORT_DESIGN_W : 0;
+  // L'iframe renderizza a larghezza desktop e viene scalato per riempire la card.
+  const frameH = scale ? box.h / scale : 0;
+
+  return (
+    <div className="cm-viewport" ref={wrapRef}>
+      {scale > 0 && (
+        <iframe
+          className="cm-viewport__frame"
+          src={url}
+          title="Anteprima sito (non interagibile)"
+          loading="lazy"
+          tabIndex={-1}
+          aria-hidden="true"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          style={{
+            width: VIEWPORT_DESIGN_W,
+            height: frameH,
+            transform: `scale(${scale})`,
+          }}
+        />
+      )}
+      {/* Guard: blocca ogni interazione, la viewport resta puramente visiva */}
+      <span className="cm-viewport__guard" aria-hidden="true" />
+    </div>
+  );
+}
+
+// ============================================================
 // Components
 // ============================================================
 
@@ -127,7 +166,13 @@ function ProjectCardInner({ p, onDemo }: { p: Proj; onDemo: (p: Proj) => void })
           <span></span>
         </div>
         <div className="cm-stack__screen">
-          <Placeholder label={p.demo ? "Mockup demo" : p.concept ? "Visual concept" : "Screenshot pagina"} icon={p.demo ? "play_circle" : "image"} />
+          {p.viewport ? (
+            <SiteViewport url={p.viewport} />
+          ) : p.embed ? (
+            <SiteViewport url={p.embed} />
+          ) : (
+            <Placeholder label={p.demo ? "Mockup demo" : p.concept ? "Visual concept" : "Screenshot pagina"} icon={p.demo ? "play_circle" : "image"} />
+          )}
         </div>
       </div>
       <div className="cm-stack__body">
@@ -143,8 +188,8 @@ function ProjectCardInner({ p, onDemo }: { p: Proj; onDemo: (p: Proj) => void })
           ))}
         </div>
         <div className="cm-stack__actions">
-          {p.live && (
-            <a className="cm-stack__arrow" href="#" onClick={(e) => e.preventDefault()} data-cursor="hug">
+          {p.live && p.href && (
+            <a className="cm-stack__arrow" href={p.href} target="_blank" rel="noopener noreferrer" data-cursor="hug">
               Vai al sito <PIcon name="arrow_outward" size={18} />
             </a>
           )}
@@ -153,7 +198,12 @@ function ProjectCardInner({ p, onDemo }: { p: Proj; onDemo: (p: Proj) => void })
               Interagisci <PIcon name="touch_app" size={18} />
             </button>
           )}
-          {p.concept && <span className="cm-stack__tag" style={{ borderStyle: "dashed" }}>Concept · non disponibile live</span>}
+          {p.embed && (
+            <button className="cm-stack__arrow" onClick={() => onDemo(p)} data-cursor="hug">
+              Esplora il concept <PIcon name="open_in_full" size={18} />
+            </button>
+          )}
+          {p.concept && !p.embed && <span className="cm-stack__tag" style={{ borderStyle: "dashed" }}>Concept · non disponibile live</span>}
         </div>
       </div>
     </React.Fragment>
@@ -214,41 +264,58 @@ function ProjectStack({ items, onDemo }: { items: Proj[]; onDemo: (p: Proj) => v
         })}
       </div>
 
-      <div className="cm-stack__nav">
-        <button className="cm-navbtn" onClick={() => go(-1)} aria-label="Precedente" data-cursor="hug">
-          <PIcon name="arrow_back" size={24} />
-        </button>
-        <div className="cm-dots" role="tablist" aria-label="Vai al progetto">
-          {items.map((_, i) => (
-            <button
-              key={i}
-              className={"cm-dot" + (i === idx ? " is-active" : "")}
-              onClick={() => setIdx(i)}
-              aria-label={"Progetto " + (i + 1)}
-              data-cursor="hug"
-            />
-          ))}
+      {n > 1 && (
+        <div className="cm-stack__nav">
+          <button className="cm-navbtn" onClick={() => go(-1)} aria-label="Precedente" data-cursor="hug">
+            <PIcon name="arrow_back" size={24} />
+          </button>
+          <div className="cm-dots" role="tablist" aria-label="Vai al progetto">
+            {items.map((_, i) => (
+              <button
+                key={i}
+                className={"cm-dot" + (i === idx ? " is-active" : "")}
+                onClick={() => setIdx(i)}
+                aria-label={"Progetto " + (i + 1)}
+                data-cursor="hug"
+              />
+            ))}
+          </div>
+          <button className="cm-navbtn" onClick={() => go(1)} aria-label="Successivo" data-cursor="hug">
+            <PIcon name="arrow_forward" size={24} />
+          </button>
         </div>
-        <button className="cm-navbtn" onClick={() => go(1)} aria-label="Successivo" data-cursor="hug">
-          <PIcon name="arrow_forward" size={24} />
-        </button>
+      )}
+    </div>
+  );
+}
+
+// ============================================================
+// Demo — "In arrivo" brandizzato
+// ============================================================
+function ComingSoon() {
+  return (
+    <div className="cm-soon">
+      <div className="cm-soon__glow" aria-hidden="true" />
+      <div className="cm-soon__inner">
+        <span className="cm-soon__badge">
+          <span className="cm-soon__dot" />
+          In arrivo
+        </span>
+        <h3 className="cm-soon__title">
+          Demo interattive<br />in lavorazione
+        </h3>
+        <p className="cm-soon__sub">
+          Stiamo costruendo prototipi da provare in prima persona — assistenti IA, configuratori e funnel. Tornano presto, qui.
+        </p>
+        <span className="cm-soon__mark">CiMa Progetti</span>
       </div>
     </div>
   );
 }
 
-function ProjectGrid({ items, onDemo }: { items: Proj[]; onDemo: (p: Proj) => void }) {
-  return (
-    <div className="cm-proggrid">
-      {items.map((p) => (
-        <article className="cm-stack__card" key={p.title}>
-          <ProjectCardInner p={p} onDemo={onDemo} />
-        </article>
-      ))}
-    </div>
-  );
-}
-
+// ============================================================
+// Overlay — demo (hints) o concept (embed interattivo)
+// ============================================================
 function DemoOverlay({ demo, onClose }: { demo: Proj; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -267,15 +334,26 @@ function DemoOverlay({ demo, onClose }: { demo: Proj; onClose: () => void }) {
         </button>
       </div>
       <div className="cm-overlay__frame">
-        <Placeholder label="Demo interattiva a schermo intero" icon="play_circle" />
-        <div className="cm-overlay__hints">
-          <h4>Cosa puoi provare</h4>
-          <ul>
-            {demo.hints?.map((h, i) => (
-              <li key={i}>{h}</li>
-            ))}
-          </ul>
-        </div>
+        {demo.embed ? (
+          <iframe
+            className="cm-overlay__embed"
+            src={demo.embed}
+            title={demo.title}
+            allow="fullscreen"
+          />
+        ) : (
+          <React.Fragment>
+            <Placeholder label="Demo interattiva a schermo intero" icon="play_circle" />
+            <div className="cm-overlay__hints">
+              <h4>Cosa puoi provare</h4>
+              <ul>
+                {demo.hints?.map((h, i) => (
+                  <li key={i}>{h}</li>
+                ))}
+              </ul>
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
   );
@@ -290,7 +368,6 @@ export default function PageProgetti() {
   const [active, setActive] = useState<ProjCategory>("online");
   const [demo, setDemo] = useState<Proj | null>(null);
   const tabsbarRef = useRef<HTMLDivElement>(null);
-  const grid = false; // Always use ProjectStack carousel
 
   // Publish tab bar height to --tabbar-h so section scroll offsets stay correct.
   useEffect(() => {
@@ -350,7 +427,7 @@ export default function PageProgetti() {
               data-cursor="hug"
             >
               {PROGETTI[t].label}
-              <span className="cm-tab__count">{PROGETTI[t].items.length}</span>
+              {PROGETTI[t].items.length > 0 && <span className="cm-tab__count">{PROGETTI[t].items.length}</span>}
             </button>
           ))}
         </div>
@@ -369,7 +446,7 @@ export default function PageProgetti() {
                   <p className="cm-prog-sec__blurb">{data.blurb}</p>
                 </div>
               </div>
-              {grid ? <ProjectGrid items={data.items} onDemo={setDemo} /> : <ProjectStack items={data.items} onDemo={setDemo} />}
+              {t === "demo" ? <ComingSoon /> : <ProjectStack items={data.items} onDemo={setDemo} />}
             </section>
           );
         })}

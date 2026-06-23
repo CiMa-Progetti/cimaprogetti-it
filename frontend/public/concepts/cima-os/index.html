@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CiMa OS — desktop</title>
+<link rel="stylesheet" href="_ds/cima-progetti-design-system-046b2a81-9726-4ecb-82b9-e5b0ba1e8492/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/cima-progetti-design-system-046b2a81-9726-4ecb-82b9-e5b0ba1e8492/tokens/colors.css">
+<link rel="stylesheet" href="_ds/cima-progetti-design-system-046b2a81-9726-4ecb-82b9-e5b0ba1e8492/tokens/typography.css">
+<link rel="stylesheet" href="_ds/cima-progetti-design-system-046b2a81-9726-4ecb-82b9-e5b0ba1e8492/tokens/spacing.css">
+<link rel="stylesheet" href="cmos.css?v=6">
+</head>
+<body>
+<div id="desk" data-theme="dark" data-chrome="ac" data-magnify="on" data-indicator="bar" data-autohide="off" data-screen-label="CiMa OS desktop">
+
+  <!-- ===== wallpaper ===== -->
+  <div class="wall" aria-hidden="true">
+    <div class="wall-photo"></div>
+    <div class="wall-tint"></div>
+    <div class="wall-grid"></div>
+    <div class="wall-mark">libcima<b>.</b>so</div>
+    <div class="wall-coord">CiMa OS · build 0.5.0<br>41.9028°N · 12.4964°E<br>roma · IT</div>
+  </div>
+
+  <!-- ===== top bar ===== -->
+  <header class="topbar" id="topbar">
+    <button class="tb-cima" id="tb-cima" aria-haspopup="true"><b>c</b>ima</button>
+    <button class="tb-menu app" id="tb-appname" data-menu="app">scrivania</button>
+    <button class="tb-menu" data-menu="file">file</button>
+    <button class="tb-menu" data-menu="modifica">modifica</button>
+    <button class="tb-menu" data-menu="vista">vista</button>
+    <span class="tb-spacer"></span>
+    <span class="tb-stat" title="rete"><span class="material-symbols-outlined">lan</span></span>
+    <span class="tb-stat" title="volume"><span class="material-symbols-outlined">volume_up</span></span>
+    <span class="tb-stat" title="batteria"><span class="material-symbols-outlined">battery_horiz_075</span></span>
+    <span class="tb-clock" id="tb-clock"></span>
+  </header>
+
+  <!-- ===== window workarea (JS populates) ===== -->
+  <main id="workarea"></main>
+
+  <!-- ===== launcher (Windows-Start ergonomics) ===== -->
+  <section class="launcher" id="launcher" aria-label="Avvio applicazioni">
+    <div class="lnch-search">
+      <span class="material-symbols-outlined">search</span>
+      <input id="lnch-input" type="text" placeholder="cerca app, documenti, impostazioni…" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="lnch-scroll" id="lnch-scroll"></div>
+    <div class="lnch-foot">
+      <div class="lnch-user">
+        <span class="lnch-ava">NC</span>
+        <span><span class="un">nicola.ciardi</span><br><span class="ur">cima_os · sessione locale</span></span>
+      </div>
+      <div class="lnch-pow">
+        <button title="Blocca" data-pow="lock"><span class="material-symbols-outlined">lock</span></button>
+        <button title="Riavvia" data-pow="restart"><span class="material-symbols-outlined">restart_alt</span></button>
+        <button class="off" title="Spegni" data-pow="shutdown"><span class="material-symbols-outlined">power_settings_new</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== dock (JS populates items) ===== -->
+  <div class="dock-hot" id="dock-hot"></div>
+  <div class="dock-wrap" id="dock-wrap">
+    <div class="dock" id="dock" data-comment-anchor="de8435f9ce-div"></div>
+  </div>
+  <div class="dock-tip" id="dock-tip"></div>
+
+  <div class="hint"><span class="material-symbols-outlined">keyboard_command_key</span> apri Impostazioni dal dock per cambiare chrome &amp; stile dock</div>
+
+</div>
+<script src="cmos.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* ============================================================
+   CiMa Progetti — Color tokens
+   Mirrors frontend/src/app/globals.css @theme (Material Design 3
+   inspired). Primary is an unapologetic electric blue; the canvas
+   is a warm off-white "paper"; structure is carried by a near-black
+   "concrete" dark and a fine warm-gray surface scale.
+   ============================================================ */
+
+:root {
+  /* ---- Brand core ---- */
+  --cima-blue: #0000ff;        /* primary — links, accents, CTAs, rules */
+  --cima-blue-bright: #1343f0; /* exploratory brighter blue (Figma) */
+  --cima-blue-sky: #4983f2;    /* lighter blue, secondary accents */
+  --cima-ink: #1b1c1c;         /* body text / titles on paper */
+  --cima-paper: #fcf9f8;       /* page background (warm off-white) */
+  --cima-dark: #282828;        /* "concrete" dark sections + logo fill */
+  --cima-maroon: #720001;      /* tertiary — seals, document accents */
+  --cima-white: #ffffff;
+  --cima-black: #000000;
+
+  /* ---- Surface scale (warm gray) ---- */
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6f3f2;
+  --surface-container: #f0eded;
+  --surface-container-high: #eae7e7;
+  --surface-container-highest: #e4e2e1;
+  --surface-dim: #dcd9d9;
+  --surface-bright: #fcf9f8;
+  --surface-variant: #e4e2e1;
+
+  /* ---- Neutrals / lines / muted text ---- */
+  --secondary: #5f5e5e;        /* meta, captions, muted body */
+  --on-surface-variant: #454558;
+  --outline: #757589;          /* footnotes, faint labels */
+  --outline-variant: #c5c4db;  /* hairlines, dividers */
+  --zinc-200: #e4e4e7;         /* light borders (Tailwind zinc-200) */
+  --zinc-800: #27272a;         /* service cards (Tailwind zinc-800) */
+  --zinc-900: #18181b;         /* service card hover */
+
+  /* ---- Status ---- */
+  --color-error: #ba1a1a;
+  --color-success: #04a11b;
+
+  /* ---- Inverse ---- */
+  --inverse-surface: #303030;
+  --inverse-on-surface: #f3f0ef;
+  --inverse-primary: #bec2ff;
+
+  /* ============================================================
+     Semantic aliases — prefer these in components
+     ============================================================ */
+  --color-primary: var(--cima-blue);
+  --color-on-primary: var(--cima-white);
+  --color-background: var(--cima-paper);
+  --color-on-background: var(--cima-ink);
+  --color-dark-bg: var(--cima-dark);
+
+  --text-body: var(--cima-ink);
+  --text-muted: var(--secondary);
+  --text-faint: var(--outline);
+  --text-accent: var(--cima-blue);
+  --text-on-dark: var(--cima-white);
+
+  --surface-page: var(--cima-paper);
+  --surface-card: var(--cima-white);
+  --surface-card-dark: var(--zinc-800);
+  --surface-dark: var(--cima-dark);
+
+  --border-default: var(--outline-variant);
+  --border-hairline: var(--zinc-200);
+  --border-strong: var(--cima-ink);
+
+  --accent: var(--cima-blue);
+
+  /* glow used by the custom block cursor on hover ("hug") */
+  --glow-primary: 0 0 25px rgba(0, 1, 187, 0.25);
+}

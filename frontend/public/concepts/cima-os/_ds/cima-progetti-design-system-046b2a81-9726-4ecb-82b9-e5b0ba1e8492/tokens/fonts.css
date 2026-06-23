@@ -1,0 +1,33 @@
+/* ============================================================
+   CiMa Progetti — Webfonts
+   ------------------------------------------------------------
+   Body / sans  : "Helvetica Neue" — the live site uses the native
+                  system stack (Helvetica Neue → Helvetica → Arial).
+                  It is a licensed system face, NOT webfont-loaded;
+                  on machines without it the Arial fallback renders,
+                  exactly as the production site intends.
+   Heading/mono : IBM Plex Mono (Bold 700 is the brand display weight)
+                  loaded from Google Fonts.
+   Icons        : Material Symbols Outlined (see usage in ICONOGRAPHY).
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+
+/* Material Symbols base class — matches the live site's lazy-loaded icon font */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}

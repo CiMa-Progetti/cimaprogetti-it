@@ -1,0 +1,55 @@
+/* ============================================================
+   CiMa Progetti — Spacing, radius, shadow, layout tokens
+   The brand is architectural: generous vertical rhythm, a single
+   soft corner radius (10px) on cards & buttons, sharp 0-radius
+   accent bars, and restrained shadows.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (rem) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* ---- Radius ---- */
+  --radius-none: 0;          /* accent bars, dividers, image blocks */
+  --radius: 10px;            /* THE brand radius — cards, buttons, inputs */
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* ---- Border widths ---- */
+  --border-w: 1px;
+  --border-w-2: 2px;         /* outline buttons & name badges */
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 25px rgba(0, 1, 187, 0.25);
+
+  /* ---- Layout ---- */
+  --container-max: 80rem;    /* max-w-7xl */
+  --container-pad: 1.5rem;   /* px-6 */
+  --container-pad-lg: 3rem;  /* lg:px-12 */
+  --section-py: 6rem;        /* py-24 */
+  --section-py-lg: 8rem;     /* lg:py-32 */
+  --accent-bar-h: 0.5rem;    /* the blue rule under headings */
+  --accent-bar-w: 6rem;
+
+  /* ---- Motion (GSAP power3.out ≈ this cubic-bezier) ---- */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);        /* @kind other */
+  --ease-power3: cubic-bezier(0.215, 0.61, 0.355, 1); /* @kind other */
+  --dur-fast: 0.15s;  /* @kind other */
+  --dur: 0.3s;        /* @kind other */
+  --dur-slow: 0.8s;   /* @kind other */
+}

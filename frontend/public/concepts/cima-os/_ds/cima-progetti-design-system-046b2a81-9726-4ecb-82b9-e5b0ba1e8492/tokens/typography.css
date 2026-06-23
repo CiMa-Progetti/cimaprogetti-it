@@ -1,0 +1,56 @@
+/* ============================================================
+   CiMa Progetti — Typography tokens
+   Two-voice system:
+   • Mono display (IBM Plex Mono, 700) — headings & hero. Often set
+     lowercase ("ecosistema integrato") for a calm, technical tone,
+     or UPPERCASE BLACK for loud statements ("SYSTEM UPGRADE").
+   • Sans body (Helvetica Neue / Arial) — paragraphs, UI, labels.
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+  --font-heading: var(--font-mono);
+
+  /* ---- Weights ---- */
+  --fw-light: 300;    /* @kind font */
+  --fw-regular: 400;  /* @kind font */
+  --fw-medium: 500;   /* @kind font */
+  --fw-bold: 700;     /* @kind font */
+  --fw-black: 900;    /* @kind font */
+
+  /* ---- Display / fluid hero ("text-huge") ---- */
+  --fs-huge: clamp(2rem, 8vw, 8rem);   /* @kind font */
+  --lh-huge: 0.9;     /* @kind font */
+  --ls-huge: -0.04em; /* @kind font */
+
+  /* ---- Type scale ---- */
+  --fs-display: 4.5rem;   /* hero headline (mono black) */
+  --fs-h1: 3.75rem;       /* 60px */
+  --fs-h2: 3rem;          /* 48px section heads */
+  --fs-h3: 1.875rem;      /* 30px card titles */
+  --fs-h4: 1.5rem;        /* 24px */
+  --fs-xl: 1.5rem;        /* 24px lead paragraphs */
+  --fs-lg: 1.125rem;      /* 18px body-large */
+  --fs-body: 1rem;        /* 16px base */
+  --fs-sm: 0.875rem;      /* 14px meta */
+  --fs-xs: 0.75rem;       /* 12px eyebrow labels */
+  --fs-2xs: 0.625rem;     /* 10px micro labels */
+
+  /* ---- Line heights ---- */
+  --lh-tight: 0.95;   /* @kind font */
+  --lh-snug: 1.15;    /* @kind font */
+  --lh-heading: 1.2;  /* @kind font */
+  --lh-body: 1.6;     /* @kind font */
+  --lh-relaxed: 1.7;  /* @kind font */
+
+  /* ---- Letter spacing ---- */
+  --ls-tight: -0.04em;    /* @kind font */
+  --ls-heading: -0.02em;  /* @kind font */
+  --ls-normal: 0;         /* @kind font */
+  --ls-wide: 0.05em;      /* @kind font */
+  --ls-wider: 0.1em;      /* @kind font */
+  --ls-widest: 0.2em;     /* @kind font */
+  --ls-mega: 0.4em;       /* @kind font */
+}

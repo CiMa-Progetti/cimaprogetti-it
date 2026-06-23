@@ -854,9 +854,9 @@ a { color: inherit; }
 .cm-tab.is-active { background: var(--cm-blue); color: #fff; }
 .cm-tab__count { font-size: 0.7rem; opacity: 0.7; margin-left: 0.35rem; }
 
-.cm-stack { position: relative; margin-top: 3rem; height: 520px; perspective: 1600px; }
+.cm-stack { position: relative; margin-top: 3rem; height: 600px; perspective: 1600px; }
 .cm-stack__card {
-  position: absolute; inset: 0; margin: auto; width: min(100%, 64rem); height: 440px;
+  position: absolute; inset: 0; margin: auto; width: min(100%, 64rem); height: 520px;
   background: var(--surface-card); border: 1px solid var(--cm-line); border-radius: var(--radius);
   box-shadow: var(--shadow-lg); overflow: hidden; display: grid; grid-template-columns: 1.55fr 1fr;
   transition: transform calc(0.6s / var(--cm-anim)) var(--ease-out), opacity calc(0.5s / var(--cm-anim)) var(--ease-out);
@@ -905,6 +905,48 @@ a { color: inherit; }
 .cm-overlay__hints h4 { margin: 0 0 0.75rem; font-family: var(--font-mono); font-size: 0.9rem; color: var(--cm-blue); text-transform: uppercase; letter-spacing: var(--ls-wide); }
 .cm-overlay__hints ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; line-height: 1.4; }
 .cm-overlay__close { background: #fff; color: #111; border: 0; border-radius: 999px; padding: 0.6rem 1.25rem; font-weight: 700; cursor: pointer; display: inline-flex; gap: 0.4rem; align-items: center; }
+.cm-overlay__embed { width: 100%; height: 100%; border: 0; display: block; background: #0a0b0b; }
+
+/* ============================================================
+   PROGETTI — viewport sito live (NON interagibile)
+   ============================================================ */
+.cm-viewport { position: absolute; inset: 0; overflow: hidden; background: var(--surface-card-dark); }
+.cm-viewport__frame { position: absolute; top: 0; left: 0; border: 0; transform-origin: top left; pointer-events: none; }
+/* Guard trasparente: garantisce viewport puramente visiva, niente interazioni */
+.cm-viewport__guard { position: absolute; inset: 0; z-index: 2; cursor: default; }
+
+/* ============================================================
+   PROGETTI — Demo "In arrivo" brandizzato
+   ============================================================ */
+.cm-soon {
+  position: relative; margin-top: 3rem; overflow: hidden;
+  min-height: 360px; display: grid; place-items: center; text-align: center;
+  background: var(--surface-card); border: 1px solid var(--cm-line); border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.cm-soon__glow {
+  position: absolute; inset: -40% 20% auto; height: 70%;
+  background: radial-gradient(60% 100% at 50% 0%, color-mix(in srgb, var(--cm-blue) 38%, transparent), transparent 70%);
+  filter: blur(40px); pointer-events: none;
+}
+.cm-soon__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding: 3.5rem 1.5rem; max-width: 46rem; }
+.cm-soon__badge {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: var(--ls-wider);
+  color: var(--cm-blue); border: 1px solid color-mix(in srgb, var(--cm-blue) 50%, transparent);
+  background: color-mix(in srgb, var(--cm-blue) 10%, transparent);
+  padding: 0.45rem 1rem; border-radius: 999px;
+}
+.cm-soon__dot { width: 8px; height: 8px; border-radius: 999px; background: var(--cm-blue); box-shadow: 0 0 0 0 color-mix(in srgb, var(--cm-blue) 60%, transparent); animation: cm-soon-pulse 1.8s var(--ease-out) infinite; }
+.cm-soon__title { font-family: var(--font-mono); font-weight: 700; font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.02; margin: 0; }
+.cm-soon__sub { color: var(--on-surface-variant); font-size: 1.05rem; line-height: var(--lh-relaxed); margin: 0; max-width: 48ch; }
+.cm-soon__mark { font-family: var(--font-mono); font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--secondary); margin-top: 0.5rem; }
+@keyframes cm-soon-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cm-blue) 55%, transparent); }
+  70% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--cm-blue) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cm-blue) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .cm-soon__dot { animation: none; } }
 
 /* ============================================================
    CHI SIAMO — team deck (mazzo a ventaglio)

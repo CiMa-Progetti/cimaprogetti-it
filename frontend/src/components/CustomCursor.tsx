@@ -175,6 +175,20 @@ export default function CustomCursor() {
       });
     };
 
+    // Reset hard se il target attivo è stato rimosso dal DOM
+    // (es. chiusura di un modale mentre il cursore "abbraccia" il bottone X).
+    const ensureActiveAlive = (): boolean => {
+      const t = activeTargetRef.current;
+      if (t && !t.isConnected) {
+        t.classList.remove("cursor-hugged");
+        activeTargetRef.current = null;
+        activeTypeRef.current = null;
+        resetCursor();
+        return false;
+      }
+      return true;
+    };
+
     // --- Split: underline spawns a block cursor ---
     const splitCursor = (target: HTMLElement) => {
       if (isSplitRef.current) return;
@@ -285,6 +299,9 @@ export default function CustomCursor() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
 
+      // Se il target morphato è sparito dal DOM, ripristina prima di posizionare.
+      ensureActiveAlive();
+
       if (isMorphedRef.current && morphRef.current && !isSplitRef.current) {
         // Morphed and not split — rubber-band to element
         const m = morphRef.current;
@@ -315,6 +332,7 @@ export default function CustomCursor() {
 
     const handleScroll = () => {
       if (!activeTargetRef.current) return;
+      if (!ensureActiveAlive()) return;
       if (isMorphedRef.current || isSplitRef.current) {
         updateMorphPosition();
       }
@@ -463,6 +481,19 @@ export default function CustomCursor() {
     // --- Mouse over/out delegation ---
     const handleMouseOver = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
+
+      // Sopra un iframe interagibile (es. embed concept) il cursore custom
+      // si congelerebbe: lo nascondiamo e lasciamo il cursore nativo dell'iframe.
+      if (el.tagName === "IFRAME") {
+        if (activeTargetRef.current) {
+          if (activeTypeRef.current === "hug") leaveHug(activeTargetRef.current);
+          if (activeTypeRef.current === "underline") leaveUnderline();
+          activeTargetRef.current = null;
+          activeTypeRef.current = null;
+        }
+        gsap.to(cursor, { opacity: 0, duration: 0.2, overwrite: "auto" });
+        return;
+      }
 
       const hugTarget = el.closest<HTMLElement>('[data-cursor="hug"]');
       const underlineTarget = el.closest<HTMLElement>('[data-cursor="underline"]');
