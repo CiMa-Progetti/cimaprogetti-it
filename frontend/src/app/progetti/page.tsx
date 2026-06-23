@@ -12,6 +12,7 @@ import { useReveal } from "@/components/hooks/useReveal";
 // ============================================================
 const MADAUDO_URL = "https://madaudo.art";
 const GIAMPY_URL = "https://giampydogsitter.it/";
+const ONLUS_URL = "https://www.onlusaiutosolidale.it/";
 // Concept CiMa OS — embed interattivo copiato in /public/concepts/cima-os/
 const CIMA_OS_URL = "/concepts/cima-os/index.html";
 
@@ -54,8 +55,8 @@ const PROGETTI: ProgData = {
     items: [
       {
         cat: "Sito artista / galleria",
-        title: "Madaudo",
-        client: "Madaudo Studio",
+        title: "Madaudo | Art",
+        client: "Madaudo",
         desc: "Sito-portfolio per un artista: storytelling visivo, archivio opere, mostre e biografia. Tema WordPress su misura, dark e gallery-forward.",
         tags: ["WordPress", "Portfolio", "Performance"],
         live: true,
@@ -65,12 +66,22 @@ const PROGETTI: ProgData = {
       {
         cat: "Sito servizi + area admin",
         title: "Giampy Dog Service",
-        client: "Giampy Dog Service · Sassari",
+        client: "Giampiero Scaglione",
         desc: "Landing page con contenuti, testimonianze, mappa e form contatti, più un pannello admin per gestire testi, SEO, immagini e richieste. Costruito con SvelteKit.",
         tags: ["SvelteKit", "Admin", "Mappa"],
         live: true,
         viewport: GIAMPY_URL,
         href: GIAMPY_URL,
+      },
+      {
+        cat: "Sito no-profit / ONLUS",
+        title: "Aiuto Solidale",
+        client: "Aiuto Solidale ONLUS",
+        desc: "Sito istituzionale per una ONLUS: missione, attività, raccolta fondi e contatti. Pensato per chiarezza, fiducia e accessibilità.",
+        tags: ["No-profit", "Donazioni", "Accessibilità"],
+        live: true,
+        viewport: ONLUS_URL,
+        href: ONLUS_URL,
       },
     ],
   },
