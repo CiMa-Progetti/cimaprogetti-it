@@ -4,10 +4,13 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import MaterialSymbolsFont from "@/components/MaterialSymbolsFont";
+import { ThemeProvider, themeNoFlashScript } from "@/components/theme/ThemeProvider";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-heading",
   display: "swap",
 });
@@ -24,16 +27,8 @@ export const metadata: Metadata = {
     "Progettiamo la struttura digitale del vostro business. Portali, database, e-commerce, automazioni IA e cybersicurezza.",
   icons: {
     icon: [
-      {
-        url: "/favicon-light.svg",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/favicon-dark.svg",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: dark)",
-      },
+      { url: "/favicon-light.svg", type: "image/svg+xml", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-dark.svg", type: "image/svg+xml", media: "(prefers-color-scheme: dark)" },
     ],
   },
 };
@@ -44,17 +39,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className={`scroll-smooth mb:overflow-x-hidden ${ibmPlexMono.variable}`}>
+    <html lang="it" className={`scroll-smooth ${ibmPlexMono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Preconnect to Google Fonts — used by Material Symbols loaded lazily */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <CustomCursor />
+        <ThemeProvider>
+          <Navbar />
+          <main className="cm-main flex-1">{children}</main>
+          <Footer />
+          <ThemeToggle floating />
+          <CustomCursor />
+          <MaterialSymbolsFont />
+        </ThemeProvider>
       </body>
     </html>
   );
