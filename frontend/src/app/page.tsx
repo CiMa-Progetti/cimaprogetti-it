@@ -139,7 +139,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div>
+    <div className="cm-fold-shell">
       {/* HERO */}
       <section className="cm-hero">
         <Eyebrow lower>soluzioni digitali</Eyebrow>

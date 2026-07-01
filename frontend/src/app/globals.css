@@ -52,7 +52,7 @@ body {
   color: var(--color-on-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Fixed background layer — solid color, no paper texture. */
@@ -177,5 +177,12 @@ img {
 /* Hug state glow */
 .cursor-hugged {
   box-shadow: 0 0 25px rgba(0, 1, 187, 0.25);
+}
+
+/* Touch hug — stronger tactile ring+glow on tap (finger covers the element,
+   so the feedback reads as a pressed, highlighted state) */
+.cursor-hugged--touch {
+  box-shadow: 0 0 0 2px rgba(0, 1, 187, 0.35), 0 0 30px rgba(0, 1, 187, 0.35);
+  transition: box-shadow 0.15s ease;
 }
 

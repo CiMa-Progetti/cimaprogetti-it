@@ -35,7 +35,70 @@ export default function CustomCursor() {
       "(prefers-reduced-motion: no-preference)"
     ).matches;
 
-    if (!hasFinePointer || !prefersAnimation || !cursorRef.current || !phantomRef.current) {
+    // --- Touch devices: no floating cursor at all.
+    // Instead, tapping a hug target gives a "touch-y" hug: press-in, glow,
+    // spring-back on release (the finger covers the element, so no outline
+    // frame follows — the feedback is scale + glow). ---
+    const setupTouchHug = (animate: boolean): (() => void) => {
+      let pressed: HTMLElement | null = null;
+      let releaseTimer: ReturnType<typeof setTimeout> | undefined;
+
+      const clearGlow = (el: HTMLElement) =>
+        el.classList.remove("cursor-hugged", "cursor-hugged--touch");
+
+      const onTouchStart = (e: TouchEvent) => {
+        const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor="hug"]');
+        if (!el) return;
+        if (releaseTimer) clearTimeout(releaseTimer);
+        if (pressed && pressed !== el) {
+          clearGlow(pressed);
+          gsap.set(pressed, { scale: 1 });
+        }
+        pressed = el;
+        el.classList.add("cursor-hugged", "cursor-hugged--touch");
+        if (animate) {
+          gsap.to(el, { scale: 0.96, duration: 0.12, ease: "power2.out", overwrite: "auto" });
+        }
+      };
+
+      const release = () => {
+        if (!pressed) return;
+        const el = pressed;
+        pressed = null;
+        if (animate) {
+          gsap
+            .timeline()
+            .to(el, { scale: 1.06, duration: 0.16, ease: "back.out(2.2)", overwrite: "auto" })
+            .to(el, { scale: 1, duration: 0.3, ease: "power2.out" });
+        }
+        releaseTimer = setTimeout(() => clearGlow(el), animate ? 300 : 140);
+      };
+
+      const cancel = () => {
+        if (!pressed) return;
+        const el = pressed;
+        pressed = null;
+        if (animate) gsap.to(el, { scale: 1, duration: 0.2, ease: "power2.out", overwrite: "auto" });
+        clearGlow(el);
+      };
+
+      document.addEventListener("touchstart", onTouchStart, { passive: true });
+      document.addEventListener("touchend", release);
+      document.addEventListener("touchcancel", cancel);
+
+      return () => {
+        document.removeEventListener("touchstart", onTouchStart);
+        document.removeEventListener("touchend", release);
+        document.removeEventListener("touchcancel", cancel);
+        if (releaseTimer) clearTimeout(releaseTimer);
+      };
+    };
+
+    if (!hasFinePointer) {
+      return setupTouchHug(prefersAnimation);
+    }
+
+    if (!prefersAnimation || !cursorRef.current || !phantomRef.current) {
       return;
     }
 
