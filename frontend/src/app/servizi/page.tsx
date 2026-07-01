@@ -33,7 +33,7 @@ const AREE: {
     result: (
       <>
         Meno tempo speso in attività ripetitive, più capacità decisionale guidata dai dati.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [
@@ -56,7 +56,7 @@ const AREE: {
     result: (
       <>
         Dati prima frammentati ora centralizzati in un'unica vista decisionale.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [
@@ -79,7 +79,7 @@ const AREE: {
     result: (
       <>
         Vulnerabilità chiuse e accessi tracciati, con continuità operativa garantita.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [{ label: "È la base per Piattaforme & Portali", to: "piat" }],
@@ -101,7 +101,7 @@ const AREE: {
     result: (
       <>
         Strumenti aziendali finalmente connessi in un'unica piattaforma scalabile.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [
@@ -124,7 +124,7 @@ const AREE: {
     result: (
       <>
         Più richieste qualificate grazie a percorsi di conversione ottimizzati.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [{ label: "Si potenzia con IA & Automazione", to: "ia" }],
@@ -145,7 +145,7 @@ const AREE: {
     result: (
       <>
         Un unico interlocutore per progettare, realizzare e far crescere il digitale.{" "}
-        <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span>
+        {/* <span style={{ opacity: 0.7 }}>[Esempio rappresentativo — DA INSERIRE caso reale]</span> */}
       </>
     ),
     cross: [{ label: "Accompagna tutte le altre aree", to: "ia" }],

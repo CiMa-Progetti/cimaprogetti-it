@@ -61,7 +61,7 @@ const TEAM: TeamMember[] = [
     photo: "team",
     pos: "70% center",
   },
-  {
+/*   {
     name: "[DA INSERIRE]",
     role: "Engineering",
     bio: "Profilo del team in arrivo. Inserisci avatar, nome e bio dal file system.",
@@ -90,7 +90,7 @@ const TEAM: TeamMember[] = [
     role: "Project Management",
     bio: "Profilo del team in arrivo. Inserisci avatar, nome e bio dal file system.",
     placeholder: true,
-  },
+  }, */
 ];
 
 const FOUNDERS: Founder[] = [
