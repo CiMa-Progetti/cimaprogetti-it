@@ -13,6 +13,7 @@ import { useReveal } from "@/components/hooks/useReveal";
 const MADAUDO_URL = "https://madaudo.art";
 const GIAMPY_URL = "https://giampydogsitter.it/";
 const ONLUS_URL = "https://www.onlusaiutosolidale.it/";
+const UNIVAPP_URL = "https://univapp.ai/";
 // Concept CiMa OS — embed interattivo copiato in /public/concepts/cima-os/
 const CIMA_OS_URL = "/concepts/cima-os/index.html";
 
@@ -83,6 +84,16 @@ const PROGETTI: ProgData = {
         viewport: ONLUS_URL,
         href: ONLUS_URL,
       },
+      {
+        cat: "Piattaforma interattiva",
+        title: "Univapp - AI Hub",
+        client: "Univapp S.r.l.",
+        desc: "Piattaforma online volta all'introduzione dell'IA in maniera etica negli ambienti accademici. Progetto riconosciuto innovativo dalla camcom di Bari.",
+        tags: ["IA", "Università", "Social Network"],
+        live: true,
+        viewport: UNIVAPP_URL,
+        href: UNIVAPP_URL,
+      }
     ],
   },
   demo: {
