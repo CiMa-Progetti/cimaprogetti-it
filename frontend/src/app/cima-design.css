@@ -835,11 +835,13 @@ a { color: inherit; }
 .cm-chip:hover { border-color: var(--cm-blue); color: var(--cm-blue); }
 @media (max-width: 920px) {
   .cm-servizi { grid-template-columns: 1fr; gap: 1.5rem; }
-  .cm-servizi__nav { position: static; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.25rem; }
+  /* nav becomes a clean horizontal pill scroller: hide the column header
+     (redundant with the big page title), show only the area links */
+  .cm-servizi__nav { position: static; flex-direction: row; flex-wrap: nowrap; align-items: center; gap: 0.5rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.25rem; }
   .cm-servizi__nav::-webkit-scrollbar { display: none; }
-  .cm-servizi__nav-title { flex: 0 0 100%; }
-  .cm-servizi__navlink { flex: 0 0 auto; white-space: nowrap; border-left: 0; border-bottom: 2px solid var(--cm-line); }
-  .cm-servizi__navlink.is-active { border-bottom-color: var(--cm-blue); border-left: 0; }
+  .cm-servizi__nav > .cima-eyebrow, .cm-servizi__nav-title { display: none; }
+  .cm-servizi__navlink { flex: 0 0 auto; white-space: nowrap; border: 1px solid var(--cm-line); border-radius: 999px; padding: 0.5rem 1rem; font-size: 0.9rem; }
+  .cm-servizi__navlink.is-active { border-color: var(--cm-blue); color: var(--cm-blue); font-weight: 700; }
 }
 @media (max-width: 720px) { .cm-area__list { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .cm-servizi--top { padding-top: 6rem; } }
