@@ -10,11 +10,49 @@ import { CP_QUIZ, CP_DIAG } from "@/lib/cp/quiz";
 
 class ProgettiPage extends React.Component<any, any> {
   [key: string]: any;
-  state = { filter: 'all', sel: null, ft: 0, kt: 0 };
+  state = { filter: 'all', sel: null, ft: 0, kt: 0, li: -1, ct: 0 };
+  storyRef = React.createRef();
   gRef = { online: React.createRef(), demo: React.createRef(), sim: React.createRef() };
   ov = {};
   measure() { let ch = false; ['online', 'demo', 'sim'].forEach(k => { const el = this.gRef[k].current; const v = el ? { l: el.scrollLeft > 4, r: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 } : { l: false, r: false }; const o = this.ov[k]; if (!o || o.l !== v.l || o.r !== v.r) { this.ov[k] = v; ch = true; } }); if (ch) this.forceUpdate(); }
-  componentDidUpdate() { cancelAnimationFrame(this._mf); this._mf = requestAnimationFrame(() => this.measure()); }
+  componentDidUpdate() { cancelAnimationFrame(this._mf); this._mf = requestAnimationFrame(() => this.measure()); if (this._ss) this._ss(); }
+  capOf(kp, pad) {
+    const Ls = kp && (CP_DATA.layers || {})[kp.id]; if (!Ls) return {};
+    const li = this.state.li;
+    if (li < 0) return { num: '00', big: '↓', t: 'Pezzo per pezzo', d: "Scorri: l'interfaccia si scompone nelle parti che fanno la differenza." };
+    if (li >= Ls.length) return { num: pad(Ls.length), big: '✓', t: 'Tutto insieme', d: kp.productLine || '' };
+    return { num: pad(li + 1), big: pad(li + 1), t: Ls[li].t, d: Ls[li].d };
+  }
+  layersOf(kp, pad) {
+    const Ls = (CP_DATA.layers || {})[kp.id];
+    if (!Ls || !Ls.length) return { hasLayers: false, uiPlain: ['affitti', 'estetica', 'circolo', 'legale', 'distributore', 'startup'].includes(kp.id) };
+    const layerList = Ls.map((l, j) => { const [x, y, w, h] = l.r; return { i: String(j + 1), j: String(j), n: pad(j + 1), x: x + '%', y: y + '%', w: w + '%', h: h + '%', clip: 'inset(' + y + '% ' + (100 - x - w) + '% ' + (100 - y - h) + '% ' + x + '% round 4px)' }; });
+    return { hasLayers: true, uiPlain: false, layerList, layerTotal: pad(Ls.length), storyH: ((Ls.length + 2) * 72) + 'vh' };
+  }
+  // Scomposizione: la sezione sticky alta (n+2)×72vh si anima con lo scroll della modale.
+  story() {
+    const root = this.storyRef.current; if (!root) { if (this.state.li !== -1) this.setState({ li: -1 }); return; }
+    const sticky = root.firstElementChild; const r = root.getBoundingClientRect(); const top = sticky.getBoundingClientRect().top - r.top;
+    const span = Math.max(1, r.height - sticky.offsetHeight);
+    const p = Math.max(0, Math.min(1, top / span));
+    const segs = root.querySelectorAll('[data-seg]'); const n = segs.length;
+    const ease = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
+    const a = p < .1 ? ease(p / .1) : p > .9 ? 1 - ease((p - .9) / .1) : 1;
+    const li = p < .1 ? -1 : p >= .9 ? n : Math.min(n - 1, Math.floor((p - .1) / .8 * n));
+    const lt = li >= 0 && li < n ? ((p - .1) / .8 * n) - li : 0;
+    const box = root.querySelector('[data-sbox]'); const W = box ? box.offsetWidth : 800;
+    const st = root.querySelector('[data-stack]'); if (st) st.style.transform = 'translateY(' + (a * 4) + '%) rotateX(' + (a * 52) + 'deg) rotateZ(' + (-a * 32) + 'deg) scale(' + (1 - a * .2) + ')';
+    root.querySelectorAll('[data-layer]').forEach(el => {
+      const i = +el.dataset.layer;
+      if (i === 0) { const v = el.querySelector('[data-veil]'); if (v) v.style.opacity = (a * .72).toFixed(3); return; }
+      const on = li === i - 1; const inside = li >= 0 && li < n;
+      el.style.transform = 'translateZ(' + (a * (on ? W * .16 : i * W * (inside ? .02 : .055))).toFixed(1) + 'px)';
+      el.style.opacity = inside && !on ? '.12' : '1';
+      el.querySelectorAll('[data-frame]').forEach(f => { f.style.opacity = on && a > .5 ? '1' : '0'; });
+    });
+    segs.forEach(s => { const j = +s.dataset.seg; s.style.transform = 'scaleX(' + (li >= n || j < li ? 1 : j === li ? lt : 0).toFixed(3) + ')'; });
+    if (li !== this.state.li) this.setState(s => ({ li, ct: s.ct + 1 }));
+  }
   scrollG(k, dir) { const el = this.gRef[k].current; if (!el) return; const c = el.querySelector('[data-card]'); const w = c ? c.getBoundingClientRect().width + 12 : 360; el.scrollBy({ left: dir * w, behavior: 'smooth' }); }
   componentDidMount() {
     requestAnimationFrame(() => document.querySelectorAll('main img').forEach(img => {
@@ -25,9 +63,11 @@ class ProgettiPage extends React.Component<any, any> {
     if (this.state && 'vw' in this.state) this.setState({ vw: window.innerWidth });
     this.onKey = e => { const L = !!this.state.live; if (!this.state.sel && !L) return; if (e.key === 'Escape') this.close(); else if (e.key === 'ArrowRight') L ? this.stepL(1) : this.step(1); else if (e.key === 'ArrowLeft') L ? this.stepL(-1) : this.step(-1); };
     document.addEventListener('keydown', this.onKey); this.boot();
+    this._ss = () => { if (this._sr) return; this._sr = requestAnimationFrame(() => { this._sr = 0; this.story(); }); };
+    document.addEventListener('scroll', this._ss, { capture: true, passive: true }); window.addEventListener('resize', this._ss);
     this._rs = () => this.measure(); window.addEventListener('resize', this._rs); setTimeout(this._rs, 400);
   }
-  componentWillUnmount() { window.removeEventListener('resize', this._rs); cancelAnimationFrame(this._mf); document.removeEventListener('keydown', this.onKey); clearTimeout(this._w); this.lock(false); }
+  componentWillUnmount() { document.removeEventListener('scroll', this._ss, { capture: true }); window.removeEventListener('resize', this._ss); cancelAnimationFrame(this._sr); window.removeEventListener('resize', this._rs); cancelAnimationFrame(this._mf); document.removeEventListener('keydown', this.onKey); clearTimeout(this._w); this.lock(false); }
   boot() {
     const D = CP_DATA; if (!D) { this._w = setTimeout(() => this.boot(), 30); return; }
     const h = decodeURIComponent((location.hash || '').slice(1));
@@ -75,14 +115,14 @@ class ProgettiPage extends React.Component<any, any> {
     const chips = [{ id: 'all', label: 'Tutti', count: pad(D.projects.filter(p => p.kind !== 'archived').length + LV.length) }].concat(used.map(s => ({ id: s.id, label: s.title, count: pad(D.projects.filter(p => p.kind !== 'archived' && p.services.includes(s.id)).length + LV.filter(p => (p.services || []).includes(s.id)).length) })))
       .map(c => { const on = filter === c.id; return { ...c, bg: on ? 'var(--fill-accent)' : 'var(--bg)', fg: on ? 'var(--on-fill)' : 'var(--ink)', bd: on ? 'var(--accent)' : 'var(--line)', pick: () => this.setState(s => s.filter === c.id ? null : { filter: c.id, ft: s.ft + 1 }) }; });
     const kp = sel ? D.projects.find(p => p.id === sel) : null;
-    const kx = kp ? { hasGains: !!(kp.gains && kp.gains.length), hasProduct: !!kp.productLine, hasIdea: !!kp.idea, noIdea: !kp.idea, probList: (kp.problems || []).map((q, i) => ({ n: pad(i + 1), t: q })), stepList: (kp.steps || []).map((q, i) => ({ n: pad(i + 1), t: q[0], d: q[1] })), hasUi: SK.includes(kp.id), noUi: !SK.includes(kp.id), hasWins: !!(kp.wins && kp.wins.length), winList: (kp.wins || []).map(w => ({ num: val[w.v].num, title: val[w.v].title, t: w.t, href: '/valori#' + w.v })), hasInvest: showPrices && !!kp.invest, hasDeliver: !!(kp.deliver && kp.deliver.length) } : {};
+    const kx = kp ? { hasGains: !!(kp.gains && kp.gains.length), hasProduct: !!kp.productLine, hasIdea: !!kp.idea, noIdea: !kp.idea, probList: (kp.problems || []).map((q, i) => ({ n: pad(i + 1), t: q })), stepList: (kp.steps || []).map((q, i) => ({ n: pad(i + 1), t: q[0], d: q[1] })), hasUi: SK.includes(kp.id), noUi: !SK.includes(kp.id), ...this.layersOf(kp, pad), hasWins: !!(kp.wins && kp.wins.length), winList: (kp.wins || []).map(w => ({ num: val[w.v].num, title: val[w.v].title, t: w.t, href: '/valori#' + w.v })), hasInvest: showPrices && !!kp.invest, hasDeliver: !!(kp.deliver && kp.deliver.length) } : {};
     const k = kp ? { ...kp, ...kx, num: num(kp), serviceLinks: kp.services.map(id => ({ title: svc[id].title.toLowerCase(), href: '/servizi#' + id })), valueLinks: kp.values.map(id => ({ num: val[id].num, title: val[id].title.toLowerCase(), href: '/valori#' + id })) } : {};
-    return { ...base, ...G,  chips, projects, total: pad(VP.length), caseOpen: !!kp, k, eqShots: [{ shot: '/cp/univapp.png', hideImg: this.hideImg, shotLoad: this.shotLoad }], liveOpen: li >= 0, lv, lvShots: lv.hasShot ? [lv] : [], liveTotal: pad(liveAll.length), prevL: () => this.stepL(-1), nextL: () => this.stepL(1), kAnim: (kt % 2 ? 'cp-in' : 'cp-in2') + ' .45s cubic-bezier(.2,.7,.2,1) both',
+    return { ...base, ...G,  chips, projects, total: pad(VP.length), caseOpen: !!kp, k, eqShots: [{ shot: '/cp/univapp.png', hideImg: this.hideImg, shotLoad: this.shotLoad }], liveOpen: li >= 0, lv, lvShots: lv.hasShot ? [lv] : [], liveTotal: pad(liveAll.length), prevL: () => this.stepL(-1), nextL: () => this.stepL(1), kAnim: (kt % 2 ? 'cp-in' : 'cp-in2') + ' .45s cubic-bezier(.2,.7,.2,1) both', storyRef: this.storyRef, cap: this.capOf(kp, pad), capAnim: (this.state.ct % 2 ? 'cp-in' : 'cp-in2') + ' .4s cubic-bezier(.2,.7,.2,1) both',
       close: () => this.close(), prev: () => this.step(-1), next: () => this.step(1), backdrop: e => { if (e.target === e.currentTarget) this.close(); } };
   }
 
   render() {
-    const { chips, onlineHas, onlineCount, onlinePrev, onlinePrevOff, onlineNext, onlineNextOff, onlineRef, onlineScroll, onlineItems, simHas, simCount, simPrev, simPrevOff, simNext, simNextOff, simRef, simScroll, simItems, eqShots, demoHas, demoCount, demoPrev, demoPrevOff, demoNext, demoNextOff, demoRef, demoScroll, demoItems, caseOpen, backdrop, prev, next, close, k, openDiag, liveOpen, prevL, nextL, lv, lvShots, demoNextCur, demoNextOp, demoPrevCur, demoPrevOp, kAnim, onlineNextCur, onlineNextOp, onlinePrevCur, onlinePrevOp, simNextCur, simNextOp, simPrevCur, simPrevOp } = this.renderVals();
+    const { chips, onlineHas, onlineCount, onlinePrev, onlinePrevOff, onlineNext, onlineNextOff, onlineRef, onlineScroll, onlineItems, simHas, simCount, simPrev, simPrevOff, simNext, simNextOff, simRef, simScroll, simItems, eqShots, demoHas, demoCount, demoPrev, demoPrevOff, demoNext, demoNextOff, demoRef, demoScroll, demoItems, caseOpen, backdrop, prev, next, close, k, openDiag, liveOpen, prevL, nextL, lv, lvShots, demoNextCur, demoNextOp, demoPrevCur, demoPrevOp, kAnim, storyRef, cap, capAnim, onlineNextCur, onlineNextOp, onlinePrevCur, onlinePrevOp, simNextCur, simNextOp, simPrevCur, simPrevOp } = this.renderVals();
     return (<>
     <main>
       <section
@@ -1313,7 +1353,165 @@ class ProgettiPage extends React.Component<any, any> {
                   </>
                 ) : null}
               </div>
-              {k.hasUi ? (
+              {k.hasLayers ? (
+                <div
+                  ref={storyRef}
+                  style={{ position: "relative", height: k.storyH, margin: "0 calc(-1 * clamp(20px,3vw,36px))" }}
+                >
+                  <div
+                    style={{
+                      position: "sticky",
+                      top: "68px",
+                      height: "calc(100vh - 68px - clamp(12px,4vh,48px))",
+                      minHeight: "440px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "14px",
+                      padding: "14px clamp(20px,3vw,36px) 20px",
+                      overflow: "hidden",
+                      background: "var(--bg)",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", fontFamily: "var(--mono)", fontSize: "12px", color: "var(--meta)" }}>
+                      <span>scomposizione_ · dati di esempio</span>
+                      <span>
+                        <span style={{ color: "var(--accent)" }}>{cap.num}</span> / {k.layerTotal}
+                      </span>
+                    </div>
+                    <div style={{ flex: "1", minHeight: "0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div
+                        data-sbox="1"
+                        style={{
+                          position: "relative",
+                          width: "min(100%,calc((100vh - 340px) * 1.778))",
+                          aspectRatio: "16/9",
+                          containerType: "inline-size",
+                        }}
+                      >
+                        <div style={{ position: "absolute", inset: "0", perspective: "2600px", perspectiveOrigin: "50% 20%" }}>
+                          <div data-stack="1" style={{ position: "absolute", inset: "0", transformStyle: "preserve-3d", willChange: "transform" }}>
+                            <div
+                              data-layer="0"
+                              style={{
+                                position: "absolute",
+                                inset: "0",
+                                background: "var(--subtle)",
+                                overflow: "hidden",
+                                boxShadow: "0 40px 80px -40px rgba(0,0,60,.4)",
+                              }}
+                            >
+                              <CaseUI skin={k.id} style={{ position: "absolute", inset: "0" }} />
+                              <div
+                                data-veil="1"
+                                style={{ position: "absolute", inset: "0", background: "var(--bg)", opacity: "0", pointerEvents: "none" }}
+                              ></div>
+                            </div>
+                            {(k.layerList || []).map((L) => (
+                              <div
+                                key={L.i}
+                                data-layer={L.i}
+                                aria-hidden="true"
+                                style={{
+                                  position: "absolute",
+                                  inset: "0",
+                                  pointerEvents: "none",
+                                  willChange: "transform,opacity",
+                                  transition: "transform .6s cubic-bezier(.2,.7,.2,1),opacity .45s",
+                                }}
+                              >
+                                <div style={{ position: "absolute", inset: "0", clipPath: L.clip }}>
+                                  <CaseUI skin={k.id} style={{ position: "absolute", inset: "0" }} />
+                                </div>
+                                <div
+                                  data-frame="1"
+                                  style={{
+                                    position: "absolute",
+                                    left: L.x,
+                                    top: L.y,
+                                    width: L.w,
+                                    height: L.h,
+                                    outline: "2px solid var(--fill-accent)",
+                                    opacity: "0",
+                                    transition: "opacity .35s",
+                                  }}
+                                ></div>
+                                <span
+                                  data-frame="1"
+                                  style={{
+                                    position: "absolute",
+                                    left: L.x,
+                                    top: L.y,
+                                    transform: "translateY(-100%)",
+                                    background: "var(--fill-accent)",
+                                    color: "var(--on-fill)",
+                                    fontFamily: "var(--mono)",
+                                    fontSize: "11px",
+                                    lineHeight: "1",
+                                    padding: "5px 7px",
+                                    opacity: "0",
+                                    transition: "opacity .35s",
+                                  }}
+                                >
+                                  {L.n}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", gap: "4px" }}>
+                      {(k.layerList || []).map((L) => (
+                        <span key={L.j} style={{ flex: "1", height: "2px", background: "var(--track)", overflow: "hidden" }}>
+                          <span
+                            data-seg={L.j}
+                            style={{
+                              display: "block",
+                              height: "100%",
+                              background: "var(--fill-accent)",
+                              transformOrigin: "left",
+                              transform: "scaleX(0)",
+                            }}
+                          ></span>
+                        </span>
+                      ))}
+                    </div>
+                    <div
+                      style={{ display: "grid", gridTemplateColumns: "auto minmax(0,1fr)", gap: "18px", alignItems: "start", minHeight: "96px" }}
+                    >
+                      <span
+                        style={{
+                          fontWeight: "700",
+                          fontSize: "clamp(36px,4vw,56px)",
+                          letterSpacing: "-.05em",
+                          lineHeight: ".9",
+                          color: "var(--accent)",
+                          minWidth: "1.3em",
+                        }}
+                      >
+                        {cap.big}
+                      </span>
+                      <div key={cap.num + cap.t} style={{ display: "flex", flexDirection: "column", gap: "8px", animation: capAnim }}>
+                        <span
+                          style={{
+                            fontWeight: "700",
+                            fontSize: "clamp(20px,2vw,28px)",
+                            letterSpacing: "-.03em",
+                            lineHeight: "1.1",
+                            textWrap: "balance",
+                          }}
+                        >
+                          {cap.t}
+                        </span>
+                        <span style={{ fontSize: "16px", lineHeight: "1.5", color: "var(--body)", maxWidth: "60ch", textWrap: "pretty" }}>
+                          {cap.d}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              {k.uiPlain ? (
                 <>
                   <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                     <span style={{ fontFamily: "var(--mono)", fontSize: "12px", color: "var(--meta)" }}>

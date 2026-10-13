@@ -83,8 +83,8 @@ class HomePage extends React.Component<any, any> {
       toggleX: after ? 'translateX(100%)' : 'translateX(0)', beforeFg: after ? 'var(--ink)' : 'var(--on-fill)', afterFg: after ? 'var(--on-fill)' : 'var(--ink)',
       showBefore: () => this.setState(s => s.after ? { after: false, auto: false, ft: s.ft + 1 } : { auto: false }),
       showAfter: () => this.setState(s => s.after ? { auto: false } : { after: true, auto: false, ft: s.ft + 1 }),
-      flow: (after ? this.flowAfter : this.flowBefore).map((n, i) => ({ ...n, num: pad(i + 1), arrow: i < 3 ? '→' : after ? '✓' : '…', bd: after ? 'var(--accent)' : 'var(--line-strong)', bs: after ? 'solid' : 'dashed', bg: after ? 'var(--bg)' : 'var(--subtle-2)', accent: after ? 'var(--accent)' : 'var(--meta)', anim: a1(ft, i * 90) })),
-      kpis: this.kpis.map(k => ({ label: k.label, v: after ? k.after : k.before, fg: after ? 'var(--accent)' : 'var(--ink)', anim: a1(ft, 300) }))
+      flow: (after ? this.flowAfter : this.flowBefore).map((n, i) => ({ ...n, ghost: (after ? this.flowBefore : this.flowAfter)[i], num: pad(i + 1), arrow: i < 3 ? '→' : after ? '✓' : '…', bd: after ? 'var(--accent)' : 'var(--line-strong)', bs: after ? 'solid' : 'dashed', bg: after ? 'var(--bg)' : 'var(--subtle-2)', accent: after ? 'var(--accent)' : 'var(--meta)', anim: a1(ft, i * 90) })),
+      kpis: this.kpis.map(k => ({ label: k.label, v: after ? k.after : k.before, ghost: after ? k.before : k.after, fg: after ? 'var(--accent)' : 'var(--ink)', anim: a1(ft, 300) }))
     };
     const D = CP_DATA; if (!D) return base;
     const svc = Object.fromEntries(D.services.map(s => [s.id, s]));
@@ -615,11 +615,26 @@ class HomePage extends React.Component<any, any> {
                     <span>{n.num}</span>
                     <span style={{ color: n.accent, transition: "color .5s" }}>{n.arrow}</span>
                   </div>
-                  <div style={{ animation: n.anim }}>
-                    <div style={{ fontWeight: "700", fontSize: "20px", letterSpacing: "-.02em", lineHeight: "1.1" }}>{n.title}</div>
-                    <div style={{ fontSize: "14px", lineHeight: "1.45", color: "var(--body)", marginTop: "8px" }}>{n.sub}</div>
+                  {/* Testo "prima" e "con CiMa" impilati nella stessa cella: quello inattivo è invisibile
+                      ma occupa spazio, così l'altezza della card non cambia allo switch (mobile). */}
+                  <div style={{ display: "grid" }}>
+                    {[n, n.ghost].map((t, t_i) => (
+                      <div
+                        key={t_i}
+                        aria-hidden={t_i === 1 || undefined}
+                        style={{ gridArea: "1 / 1", visibility: t_i ? "hidden" : undefined, animation: t_i ? undefined : n.anim }}
+                      >
+                        <div style={{ fontWeight: "700", fontSize: "20px", letterSpacing: "-.02em", lineHeight: "1.1" }}>{t.title}</div>
+                        <div style={{ fontSize: "14px", lineHeight: "1.45", color: "var(--body)", marginTop: "8px" }}>{t.sub}</div>
+                      </div>
+                    ))}
                   </div>
-                  <div style={{ fontFamily: "var(--mono)", fontSize: "12px", color: n.accent, animation: n.anim }}>{n.note}</div>
+                  <div style={{ display: "grid", fontFamily: "var(--mono)", fontSize: "12px", color: n.accent }}>
+                    <div style={{ gridArea: "1 / 1", animation: n.anim }}>{n.note}</div>
+                    <div aria-hidden="true" style={{ gridArea: "1 / 1", visibility: "hidden" }}>
+                      {n.ghost.note}
+                    </div>
+                  </div>
                 </div>
               </React.Fragment>
             ))}
@@ -642,16 +657,18 @@ class HomePage extends React.Component<any, any> {
                   <span style={{ fontFamily: "var(--mono)", fontSize: "12px", color: "var(--meta)" }}>{k.label}</span>
                   <span
                     style={{
+                      display: "grid",
+                      justifyItems: "end",
                       fontWeight: "700",
                       fontSize: "clamp(28px,2.8vw,40px)",
                       letterSpacing: "-.04em",
                       lineHeight: "1",
-                      color: k.fg,
-                      animation: k.anim,
-                      transition: "color .4s",
                     }}
                   >
-                    {k.v}
+                    <span style={{ gridArea: "1 / 1", color: k.fg, animation: k.anim, transition: "color .4s" }}>{k.v}</span>
+                    <span aria-hidden="true" style={{ gridArea: "1 / 1", visibility: "hidden" }}>
+                      {k.ghost}
+                    </span>
                   </span>
                 </div>
               </React.Fragment>

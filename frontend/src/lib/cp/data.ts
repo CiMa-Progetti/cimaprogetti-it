@@ -72,6 +72,37 @@ const RAW = {
     { q: 'Usate l’IA sui nostri dati?', a: "L'Intelligenza Artificiale viene utilizzata solo con una scelta esplicita e scritta, conforme agli obiettivi del progetto. Inoltre, quando bisogna lavorare con dati che non possono essere anonimizzati, installiamo i modelli su server locali." },
     { q: 'Lavorate fuori Roma?', a: 'Sì, in tutta Italia. Sopralluogo e momenti chiave in presenza, il resto anche da remoto.' }
   ],
+  // scomposizione dei casi riservati: r = [x, y, w, h] in % dell'interfaccia, t = titolo, d = perché conta
+  layers: {
+    affitti: [
+      { r: [21.5, 43, 47.7, 54], t: "Il punto di verifica", d: "Ogni fattura passa da qui prima dello SdI: approvi, correggi o blocchi con un clic. L'automazione prepara, la decisione resta a te." },
+      { r: [21.5, 12.5, 47.7, 27.5], t: "Un totale, un invio", d: "Incassi dei portali e prenotazioni dirette in un'unica cifra. I dati si inseriscono una volta sola e la trasmissione parte da qui." },
+      { r: [71.5, 12.5, 27.5, 13], t: "Solo ciò che chiede attenzione", d: "Il sistema segnala le fatture ancora da inviare: non serve ricontrollare tutto per trovare l'eccezione." },
+      { r: [0, 0, 19.5, 100], t: "Ogni casa, i suoi conti", d: "Un appartamento in più è una voce in più, non lavoro in più. Entrate, commissioni ed extra si leggono casa per casa." },
+      { r: [71.5, 43, 27.5, 54], t: "Il mese sotto controllo", d: "Quanto manca alla chiusura del ciclo fiscale, a colpo d'occhio: il 78% delle fatture è già emesso." }
+    ],
+    estetica: [
+      { r: [4, 36, 53.5, 10], t: "Lo slot si riempie da solo", d: "Quando una cliente disdice, il sistema avvisa chi è in lista d'attesa: l'orario torna prenotabile senza una telefonata." },
+      { r: [61, 3.5, 37, 16.5], t: "Da 12 a 3 no-show", d: "Promemoria automatici e acconto alla prenotazione: le assenze crollano e l'agenda regge." },
+      { r: [61, 22, 37, 16.5], t: "Una regola, applicata sempre", d: "La trattenuta scatta da sola, solo per le disdette tardive: nessuna discussione imbarazzante alla cassa." },
+      { r: [61, 40.5, 37, 55.5], t: "Il magazzino avvisa prima", d: "Quando un prodotto scende sotto la soglia arriva il promemoria di riordino, prima che manchi a metà trattamento." },
+      { r: [2.4, 14.8, 56.7, 81.5], t: "La giornata in un colpo d'occhio", d: "Per ogni appuntamento: trattamento, acconto, promemoria, conferma. Chi è in cabina sa già tutto." }
+    ],
+    circolo: [
+      { r: [4, 6.5, 22, 93.5], t: "Il socio ordina dal lettino", d: "Dall'app del circolo, senza cercare un cameriere: sceglie, aggiunge e conferma in un tocco." },
+      { r: [28, 31.5, 68, 12.5], t: "Ogni ordine sa dove andare", d: "Lettino o cabina, nome, cosa e quanto: chi consegna non sbaglia destinazione." },
+      { r: [29, 23.5, 36, 7.5], t: "Bar e cucina sulla stessa coda", d: "Nuovi, in preparazione, pronti, consegnati: lo stato di ogni ordine è chiaro a tutto lo staff." },
+      { r: [29, 87, 34, 7], t: "Il menù si aggiorna in un attimo", d: "Un piatto esaurito sparisce dall'app dei soci: niente ordini impossibili, niente scuse." },
+      { r: [81, 8, 15.5, 6.5], t: "L'incasso del giorno, in tempo reale", d: "18 ordini, € 742: il gestore sa com'è andata la giornata senza aspettare la chiusura di cassa." }
+    ],
+    legale: [
+      { r: [81, 2.5, 17.5, 6.5], t: "I dati non escono dallo studio", d: "Il modello è installato sul server dello studio: nessun fascicolo passa da servizi esterni." },
+      { r: [2, 2.5, 24, 6.5], t: "Trentotto anni, digitalizzati", d: "18.420 fascicoli dal 1987 a oggi: l'archivio cartaceo diventa consultabile in pochi secondi." },
+      { r: [3, 12.5, 52, 32.5], t: "Risposte dall'esperienza dello studio", d: "Si chiede in linguaggio naturale; la risposta parte dalle pratiche già seguite, non da internet." },
+      { r: [3, 46, 46, 6.5], t: "Ogni risposta cita le fonti", d: "Parere, sentenza, memoria, con il numero di pratica: l'avvocato verifica tutto prima di usarlo." },
+      { r: [60.5, 11.5, 38.5, 86], t: "Il passaggio esatto, evidenziato", d: "Si apre il documento originale alla pagina giusta, con la frase che conta già evidenziata." }
+    ]
+  },
   phrases: ['i dati vivono in un excel chiamato DEFINITIVO_v7', 'il report lo sa fare una persona sola', "il backup c'è. nessuno l'ha mai ripristinato", 'ogni lunedì tre ore di copia-incolla tra due sistemi', "usiamo l'ia online anche sui documenti dei clienti", 'il fornitore ha consegnato ed è sparito', "i clienti chiamano per sapere dov'è l'ordine"]
 };
 
