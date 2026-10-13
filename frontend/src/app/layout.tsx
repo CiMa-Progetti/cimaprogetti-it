@@ -1,30 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import MaterialSymbolsFont from "@/components/MaterialSymbolsFont";
+import Nav from "@/components/cp/Nav";
 import { ThemeProvider, themeNoFlashScript } from "@/components/theme/ThemeProvider";
-import ThemeToggle from "@/components/theme/ThemeToggle";
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
+  ],
 };
 
 export const metadata: Metadata = {
-  title: "CiMa Progetti | Digital Architecture & Integration",
+  title: "CiMa Progetti | Software House di persone",
   description:
-    "Progettiamo la struttura digitale del vostro business. Portali, database, e-commerce, automazioni IA e cybersicurezza.",
+    "Software su misura, automazione dei processi, IA locale, cybersicurezza e formazione per PMI e professionisti. Sopralluogo gratuito.",
   icons: {
     icon: [
       { url: "/favicon-light.svg", type: "image/svg+xml", media: "(prefers-color-scheme: light)" },
@@ -39,20 +32,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className={`scroll-smooth ${ibmPlexMono.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
-      </head>
-      <body className="min-h-screen flex flex-col">
+    <html lang="it" suppressHydrationWarning>
+      <body>
+        <Script id="cp-theme" strategy="beforeInteractive">
+          {themeNoFlashScript}
+        </Script>
         <ThemeProvider>
-          <Navbar />
-          <main className="cm-main flex-1">{children}</main>
-          <Footer />
-          <ThemeToggle floating />
-          <CustomCursor />
-          <MaterialSymbolsFont />
+          <Nav />
+          {children}
         </ThemeProvider>
       </body>
     </html>

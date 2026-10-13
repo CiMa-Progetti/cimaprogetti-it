@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 const MATERIAL_SYMBOLS_URL =
-  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap";
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,500,0,0&display=block";
 
 let loaded = false;
 

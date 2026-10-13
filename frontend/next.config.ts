@@ -34,6 +34,14 @@ const nextConfig: NextConfig = {
   /* Generate static pages early */
   reactStrictMode: true,
 
+  /* Short URLs printed as QR codes on the founders' business cards: never remove.
+     Temporary (307) so the destination can change without browsers caching it. */
+  async redirects() {
+    return [
+      { source: "/nicolaleoneciardi", destination: "/chi-siamo/nicola-leone-ciardi", permanent: false },
+      { source: "/valentinamadaudo", destination: "/chi-siamo/valentina-madaudo", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

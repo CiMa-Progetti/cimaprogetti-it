@@ -1,188 +1,214 @@
-@import "tailwindcss";
-@import "./cima-design.css";
+/* ============================================================
+   CiMa Progetti — redesign B2B
+   Token di tema (chiaro + scuro), base, keyframes, utility hover.
+   I componenti usano stili inline che leggono SOLO questi token:
+   cambiando [data-theme] cambia tutto il sito.
+   ============================================================ */
 
-@theme inline {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-heading: var(--font-heading), "IBM Plex Mono", monospace;
+:root {
+  color-scheme: light;
 
-  --color-background: #fcf9f8;
-  --color-on-background: #1b1c1c;
-  --color-surface: #fcf9f8;
-  --color-on-surface: #1b1c1c;
-  --color-surface-dim: #dcd9d9;
-  --color-surface-bright: #fcf9f8;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f6f3f2;
-  --color-surface-container: #f0eded;
-  --color-surface-container-high: #eae7e7;
-  --color-surface-container-highest: #e4e2e1;
-  --color-surface-variant: #e4e2e1;
-  --color-on-surface-variant: #454558;
-  --color-primary: #0000ff;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #0000ff;
-  --color-on-primary-container: #b3b7ff;
-  --color-secondary: #5f5e5e;
-  --color-on-secondary: #ffffff;
-  --color-secondary-container: #e4e2e1;
-  --color-on-secondary-container: #656464;
-  --color-tertiary: #720001;
-  --color-on-tertiary: #ffffff;
-  --color-error: #ba1a1a;
-  --color-on-error: #ffffff;
-  --color-outline: #757589;
-  --color-outline-variant: #c5c4db;
-  --color-inverse-surface: #303030;
-  --color-inverse-on-surface: #f3f0ef;
-  --color-inverse-primary: #bec2ff;
-  --color-dark-bg: #282828;
+  /* testo */
+  --ink: #000000;          /* titoli, testo forte */
+  --body: #333333;         /* testo corrente */
+  --meta: #6a6a6a;         /* etichette mono, meta */
+  --accent: #0000ff;       /* blu CiMa su testo, linee, icone */
+  --accent-soft: #a3a3ff;  /* barre secondarie */
+  --accent-wash: rgba(0, 0, 255, 0.07);
+  --accent-tint: #f3f3ff;  /* riga attiva */
+  --accent-line: #c9c9ff;  /* bordo "fatto" */
+  --on-fill: #ffffff;      /* testo su blocchi blu / neri */
+
+  /* superfici */
+  --bg: #ffffff;
+  --fill-accent: #0000ff;  /* blocchi blu pieni */
+  --fill-ink: #000000;     /* blocchi neri pieni, hover dei bottoni blu */
+  --subtle: #f6f6f6;
+  --subtle-2: #f9f9f9;
+  --subtle-3: #efefef;
+  --track: #e3e3e3;        /* binari, separatori pieni */
+  --dot: #e2e2e2;          /* puntinato hero */
+  --grid: #f0f0f8;         /* griglia blueprint */
+  --glass: rgba(255, 255, 255, 0.86);
+  --glass-strong: rgba(255, 255, 255, 0.94);
+
+  /* linee */
+  --line: #e0e0e0;
+  --line-soft: #ececec;
+  --line-strong: #d4d4d4;
+
+  /* effetti */
+  --shadow-lift: 0 48px 96px -48px rgba(0, 0, 255, 0.35);
+  --shadow-drawer: -40px 0 80px -40px rgba(0, 0, 0, 0.3);
+  --scrim: rgba(10, 10, 40, 0.4);
+
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ink: #f2f2f3;
+  --body: #c3c3c9;
+  --meta: #8e8e98;
+  --accent: #7d87ff;
+  --accent-soft: #3b408f;
+  --accent-wash: rgba(125, 135, 255, 0.1);
+  --accent-tint: #15163a;
+  --accent-line: #3b408f;
+  --on-fill: #ffffff;
+
+  --bg: #0b0b0d;
+  --fill-accent: #0000ff;
+  --fill-ink: #24242b;
+  --subtle: #141417;
+  --subtle-2: #111114;
+  --subtle-3: #1a1a1f;
+  --track: #26262d;
+  --dot: #222228;
+  --grid: #15152a;
+  --glass: rgba(11, 11, 13, 0.82);
+  --glass-strong: rgba(11, 11, 13, 0.94);
+
+  --line: #2a2a31;
+  --line-soft: #1e1e24;
+  --line-strong: #3c3c45;
+
+  --shadow-lift: 0 48px 96px -48px rgba(60, 70, 255, 0.45);
+  --shadow-drawer: -40px 0 80px -40px rgba(0, 0, 0, 0.8);
+  --scrim: rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 html {
   scroll-behavior: smooth;
+  background: var(--bg);
 }
-
-html {
-  background: var(--color-background);
-}
-
 body {
-  font-family: var(--font-sans);
-  background: transparent;
-  color: var(--color-on-background);
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+  transition: background-color 0.3s, color 0.3s;
 }
-
-/* Fixed background layer — solid color, no paper texture. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: var(--color-background);
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
-
-.text-huge {
-  font-size: clamp(2rem, 8vw, 8rem);
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+a:hover {
+  color: var(--ink);
 }
-
-/* Performance optimizations */
+button {
+  font: inherit;
+  color: inherit;
+}
 img {
-  decoding: async;
+  max-width: 100%;
+}
+::selection {
+  background: var(--fill-accent);
+  color: #fff;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-/* Hero entrance animations — headline uses slide-only (no opacity)
-   so LCP fires immediately; CTAs fade in after. */
-@keyframes hero-slide-up {
-  from {
-    transform: translateY(40px);
-  }
-  to {
-    transform: translateY(0);
-  }
+/* logo / immagini per tema */
+.cp-only-dark {
+  display: none !important;
+}
+:root[data-theme="dark"] .cp-only-light {
+  display: none !important;
+}
+:root[data-theme="dark"] .cp-only-dark {
+  display: block !important;
 }
 
-@keyframes hero-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ---------- hover utility ----------
+   style-hover del prototipo → className="h-<prop>" + variabile "--h-<prop>" inline.
+   !important perché gli stili di base sono inline. */
+.h-color:hover {
+  color: var(--h-color) !important;
+}
+.h-background:hover {
+  background: var(--h-background) !important;
+}
+.h-border-color:hover {
+  border-color: var(--h-border-color) !important;
+}
+.h-transform:hover {
+  transform: var(--h-transform) !important;
+}
+.h-box-shadow:hover {
+  box-shadow: var(--h-box-shadow) !important;
+}
+.h-opacity:hover {
+  opacity: var(--h-opacity) !important;
 }
 
-.hero-slide-up {
-  animation: hero-slide-up 0.8s cubic-bezier(0.33, 1, 0.68, 1) both;
+/* ---------- material symbols ---------- */
+.ms {
+  font-family: "Material Symbols Sharp";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
 }
 
-.hero-fade-up {
-  animation: hero-fade-up 0.6s cubic-bezier(0.33, 1, 0.68, 1) both;
+/* ---------- scrollbar orizzontali delle gallerie ---------- */
+.cp-noscroll {
+  scrollbar-width: none;
+}
+.cp-noscroll::-webkit-scrollbar {
+  display: none;
 }
 
-.hero-fade-up-delay-1 {
-  animation-delay: 0.5s;
-}
+/* ---------- keyframes ---------- */
+@keyframes cp-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+@keyframes cp-in { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+@keyframes cp-in2 { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+@keyframes cp-q { from { opacity: 0; transform: translateX(28px) } to { opacity: 1; transform: none } }
+@keyframes cp-q2 { from { opacity: 0; transform: translateX(28px) } to { opacity: 1; transform: none } }
+@keyframes cp-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes cp-ping { 0% { transform: scale(1); opacity: .7 } 100% { transform: scale(2.6); opacity: 0 } }
+@keyframes cp-bar { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes cp-bar2 { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes cp-up { from { transform: translateY(105%) } to { transform: none } }
+@keyframes cp-up2 { from { transform: translateY(105%) } to { transform: none } }
+@keyframes cp-pop { from { opacity: 0; transform: translateY(24px) scale(.985) } to { opacity: 1; transform: none } }
+@keyframes cp-drawer { from { transform: translateX(48px); opacity: 0 } to { transform: none; opacity: 1 } }
 
-.hero-fade-up-delay-2 {
-  animation-delay: 0.65s;
-}
-
-.hero-fade-up-delay-3 {
-  animation-delay: 0.8s;
-}
-
-/* Scroll-down cue animation */
-@keyframes scroll-down {
-  0%, 100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(8px);
-    opacity: 0.4;
-  }
-}
-
-.animate-scroll-down {
-  animation: scroll-down 1.8s ease-in-out infinite;
-}
-
-/* Prevent layout shift for lazy-loaded images */
-img {
-  aspect-ratio: auto;
-}
-
-/* Optimize animations for reduced motion preference */
+/* ---------- motion ridotto ---------- */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  }
+  [data-reveal],
+  [data-rise],
+  [data-grow] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
-
-/* Hide scrollbar for horizontal carousels */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* Custom cursor - hide native cursor on desktop */
-@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  html,
-  body {
-    cursor: none;
-  }
-  a,
-  button,
-  [role="button"],
-  [data-cursor] {
-    cursor: none;
-  }
-}
-
-/* Hug state glow */
-.cursor-hugged {
-  box-shadow: 0 0 25px rgba(0, 1, 187, 0.25);
-}
-
-/* Touch hug — stronger tactile ring+glow on tap (finger covers the element,
-   so the feedback reads as a pressed, highlighted state) */
-.cursor-hugged--touch {
-  box-shadow: 0 0 0 2px rgba(0, 1, 187, 0.35), 0 0 30px rgba(0, 1, 187, 0.35);
-  transition: box-shadow 0.15s ease;
-}
-
