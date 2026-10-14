@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { openDiag } from "@/lib/cp/quiz";
+import { openConsent } from "@/lib/cp/consent";
 
 export default function Footer({ cta = true, index = true }: { cta?: boolean; index?: boolean }) {
   const [vw, setVw] = useState(1280);
@@ -457,6 +458,14 @@ export default function Footer({ cta = true, index = true }: { cta?: boolean; in
           <a href="/legale#termini" className="h-color" style={{ color: "var(--ink)", "--h-color": "var(--accent)" }}>
             Termini e condizioni
           </a>
+          <button
+            type="button"
+            onClick={openConsent}
+            className="h-color"
+            style={{ padding: 0, border: 0, background: "transparent", textAlign: "left", fontSize: "15px", cursor: "pointer", color: "var(--ink)", "--h-color": "var(--accent)" }}
+          >
+            Preferenze cookie
+          </button>
           <span style={{ fontFamily: "var(--mono)", fontSize: "12px", color: "var(--meta)" }}>© 2026_</span>
         </div>
       </div>

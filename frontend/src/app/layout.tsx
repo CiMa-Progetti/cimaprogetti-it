@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Nav from "@/components/cp/Nav";
+import CookieConsent from "@/components/cp/CookieConsent";
 import { ThemeProvider, themeNoFlashScript } from "@/components/theme/ThemeProvider";
 
 export const viewport: Viewport = {
@@ -40,6 +41,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Nav />
           {children}
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>

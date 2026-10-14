@@ -2,6 +2,7 @@
 // Privacy policy · Cookie policy · Termini e condizioni (porting di Legale.dc.html)
 import React, { useEffect, useState } from "react";
 import Footer from "@/components/cp/Footer";
+import { openConsent } from "@/lib/cp/consent";
 
 type DocId = "privacy" | "cookie" | "termini";
 type Block =
@@ -26,6 +27,31 @@ function A({ href, ext, children }: { href: string; ext?: boolean; children: Rea
     >
       {children}
     </a>
+  );
+}
+
+function PrefsButton() {
+  return (
+    <button
+      type="button"
+      onClick={openConsent}
+      className="h-background h-color"
+      style={{
+        height: "48px",
+        padding: "0 20px",
+        border: 0,
+        background: "var(--fill-accent)",
+        color: "var(--on-fill)",
+        fontWeight: 700,
+        fontSize: "15px",
+        cursor: "pointer",
+        transition: "background .25s",
+        "--h-background": "var(--fill-ink)",
+        "--h-color": "var(--on-fill)",
+      }}
+    >
+      Apri le preferenze cookie
+    </button>
   );
 }
 
@@ -74,14 +100,16 @@ const DOCS: Record<DocId, Doc> = {
     ],
   },
   cookie: {
-    meta: "cookie policy · ultimo aggiornamento 13 ottobre 2026",
-    lead: <>Questo sito non usa cookie di profilazione né strumenti di statistica. Per questo non ti chiediamo alcun consenso.</>,
+    meta: "cookie policy · ultimo aggiornamento 14 ottobre 2026",
+    lead: <>Oggi questo sito usa solo strumenti tecnici necessari: niente cookie di profilazione, niente statistiche. Le categorie opzionali restano spente finché non le attivi tu.</>,
     sections: [
       { id: "c1", title: "Cosa sono", blocks: [
         { t: "p", c: <>{"I cookie sono piccoli file che un sito salva nel tuo browser. L'archiviazione locale (localStorage) funziona in modo simile, ma i dati restano nel browser e non vengono inviati al server a ogni visita."}</> },
       ] },
       { id: "c2", title: "Cosa salviamo nel tuo browser", blocks: [
         { t: "info", rows: [["nome", <>cp-c-diagnosi</>], ["tipo", <>archiviazione locale (localStorage)</>], ["finalità", <>tecnica: ricorda le risposte della diagnosi, così puoi riprendere da dove eri rimasto</>], ["durata", <>finché non ricominci la diagnosi o non cancelli i dati del sito</>], ["consenso", <>non necessario: è uno strumento strettamente necessario al servizio che hai richiesto (art. 122 del Codice privacy)</>]] },
+        { t: "p", c: <>Sempre nel tuo browser, e sempre senza consenso perché strettamente necessari, salviamo anche:</> },
+        { t: "ul", items: [<><B>cp-consent</B>{" ricorda le scelte che fai nel pannello dei cookie, per 6 mesi; poi te le chiediamo di nuovo."}</>, <><B>cima-theme</B>{" ricorda se preferisci il tema chiaro o scuro."}</>] },
       ] },
       { id: "c3", title: "Contenuti di terze parti", blocks: [
         { t: "p", c: <>Alcune parti del sito vengono caricate da fornitori esterni:</> },
@@ -89,10 +117,12 @@ const DOCS: Record<DocId, Doc> = {
         { t: "p", c: <>Per caricarli, il tuo browser si collega ai loro server, che ricevono il tuo indirizzo IP. Tramite loro non attiviamo cookie di profilazione.</> },
       ] },
       { id: "c4", title: "Come gestirli", blocks: [
-        { t: "p", c: <>Puoi vedere e cancellare cookie e dati salvati dalle impostazioni del tuo browser. Se cancelli i dati di questo sito, la diagnosi ricomincia da capo.</> },
+        { t: "p", c: <>{"Le categorie sono tre: necessari (sempre attivi), statistiche e marketing. Statistiche e marketing sono spente di default e oggi non contengono alcuno strumento. Puoi cambiare le tue scelte quando vuoi, anche dal link «Preferenze cookie» in fondo a ogni pagina."}</> },
+        { t: "p", c: <PrefsButton /> },
+        { t: "p", c: <>Puoi anche vedere e cancellare cookie e dati salvati dalle impostazioni del tuo browser. Se cancelli i dati di questo sito, la diagnosi ricomincia da capo e il pannello dei cookie ti verrà riproposto.</> },
       ] },
       { id: "c5", title: "Se cambia qualcosa", blocks: [
-        { t: "p", c: <>Se in futuro aggiungeremo strumenti di statistica o di marketing, ti chiederemo il consenso prima di attivarli, come previsto dalle Linee guida del Garante del 10 giugno 2021.</> },
+        { t: "p", c: <>Se in futuro aggiungeremo strumenti di statistica o di marketing, li elencheremo qui e ti riproporremo il pannello per chiederti il consenso prima di attivarli, come previsto dalle Linee guida del Garante del 10 giugno 2021.</> },
       ] },
     ],
   },
