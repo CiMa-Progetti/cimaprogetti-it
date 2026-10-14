@@ -4,6 +4,7 @@
 import React from "react";
 import Link from "next/link";
 import Footer from "@/components/cp/Footer";
+import HeroEcosystem from "@/components/cp/HeroEcosystem";
 import { CP_DATA } from "@/lib/cp/data";
 import { CP_QUIZ, CP_DIAG } from "@/lib/cp/quiz";
 
@@ -18,7 +19,7 @@ class HomePage extends React.Component<any, any> {
     { room: 'seg', text: 'Documenti dei clienti caricati su IA online', metric: '38', unit: 'file', label: 'riservati, finiti su servizi esterni', service: 'IA locale' }
   ];
   claims = [
-    [['Gestionali e app', ''], ['costruiti con te,', ''], ['', 'spiegati a tutti']],
+    [['Gestionali e app', ''], ['costruiti con te,', ''], ['', "chiari per l'azienda"]],
     [['IA installata', ''], ['sui tuoi server,', ''], ['', 'non altrove']],
     [['Automatizziamo', ''], ['i processi,', ''], ['', 'non le persone']],
     [['Software e IA', ''], ['solo dove', ''], ['', 'conviene davvero']]
@@ -102,6 +103,8 @@ class HomePage extends React.Component<any, any> {
   }
 
   render() {
+    // heroVisual: 'ecosistema' (default) | 'sopralluogo' (pianta con mirino, versione precedente)
+    const isEco = (this.props.heroVisual ?? 'ecosistema') !== 'sopralluogo';
     const { claimLines, openDiag, heroStep, rooms, coord, hero, heroBarRef, showBefore, showAfter, flow, kpis, sym, projCount, vals, method, faq, afterFg, beforeFg, chipT, cx, cy, dC, dM, doorCols, dP, dS, dV, heroAnim, heroCols, symAnim, toggleX, trackCols } = this.renderVals();
     return (<>
     <main>
@@ -137,7 +140,7 @@ class HomePage extends React.Component<any, any> {
                 color: "var(--body)",
               }}
             >
-              La tua Software House di persone, non solo strumenti
+              Persone, non solo strumenti
             </div>
             <h1
               aria-live="polite"
@@ -259,6 +262,12 @@ class HomePage extends React.Component<any, any> {
               </span>
             </div>
           </div>
+          {isEco ? (
+            <div data-reveal="1" data-delay="200">
+              <HeroEcosystem />
+            </div>
+          ) : null}
+          {!isEco ? (
           <div data-reveal="1" data-delay="200">
             <div
               data-spot="1"
@@ -472,6 +481,7 @@ class HomePage extends React.Component<any, any> {
               </div>
             </div>
           </div>
+          ) : null}
         </div>
       </section>
       <section style={{ borderTop: "1px solid var(--line-soft)" }}>
